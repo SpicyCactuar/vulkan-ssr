@@ -1,0 +1,1588 @@
+# Blender 4.1.1 MTL File: 'bistro.blend'
+# www.blender.org
+
+# Commented map_Pm lines intended to make pavement reflective
+# Uncommend to show original scene
+
+newmtl Antenna_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Antenna_Metal_BaseColor.png
+map_Pr textures/r-Antenna_Metal_Specular.png
+map_Pm textures/M-Antenna_Metal_Specular.png
+map_d textures/Antenna_Metal_BaseColor.png
+
+newmtl Antenna_Plastic
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Antenna_Plastic_BaseColor.png
+map_Pr textures/r-Antenna_Plastic_Specular.png
+map_Pm textures/M-Antenna_Plastic_Specular.png
+map_d textures/Antenna_Plastic_BaseColor.png
+
+newmtl Antenna_Plastic_Blue
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Antenna_Plastic_Blue_BaseColor.png
+map_Pr textures/r-Antenna_Plastic_Blue_Specular.png
+map_Pm textures/M-Antenna_Plastic_Blue_Specular.png
+map_d textures/Antenna_Plastic_Blue_BaseColor.png
+
+newmtl Ashtray
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Ashtray_BaseColor.png
+map_Pr textures/r-Ashtray_Specular.png
+map_Pm textures/M-Ashtray_Specular.png
+map_d textures/Ashtray_BaseColor.png
+
+newmtl Awnings_Beams
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Awnings_Beams_BaseColor.png
+map_Pr textures/r-Awnings_Beams_Specular.png
+map_Pm textures/M-Awnings_Beams_Specular.png
+map_d textures/Awnings_Beams_BaseColor.png
+
+newmtl Awnings_Fabric
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Awnings_Fabric_BaseColor.png
+map_Pr textures/r-Awnings_Fabric_Specular.png
+map_Pm textures/M-Awnings_Fabric_Specular.png
+map_d textures/Awnings_Fabric_BaseColor.png
+
+newmtl Awnings_Hotel_Fabric
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Awnings_Hotel_Fabric_BaseColor.png
+map_Pr textures/r-Awnings_Hotel_Fabric_Specular.png
+map_Pm textures/M-Awnings_Hotel_Fabric_Specular.png
+map_d textures/Awnings_Hotel_Fabric_BaseColor.png
+
+newmtl Balcony_Concrete
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Balcony_Concrete_BaseColor.png
+map_Pr textures/r-Balcony_Concrete_Specular.png
+map_Pm textures/M-Balcony_Concrete_Specular.png
+map_d textures/Balcony_Concrete_BaseColor.png
+
+newmtl Balcony_Green_Wood
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Balcony_Green_Wood_BaseColor.png
+map_Pr textures/r-Balcony_Green_Wood_Specular.png
+map_Pm textures/M-Balcony_Green_Wood_Specular.png
+map_d textures/Balcony_Green_Wood_BaseColor.png
+
+newmtl Balcony_Ornaments
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Balcony_Ornaments_BaseColor.png
+map_Pr textures/r-Balcony_Ornaments_Specular.png
+map_Pm textures/M-Balcony_Ornaments_Specular.png
+map_d textures/Balcony_Ornaments_BaseColor.png
+
+newmtl Balcony_Trims
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Balcony_Trims_BaseColor.png
+map_Pr textures/r-Balcony_Trims_Specular.png
+map_Pm textures/M-Balcony_Trims_Specular.png
+map_d textures/Balcony_Trims_BaseColor.png
+
+newmtl Banner_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Banner_Metal_BaseColor.png
+map_Pr textures/r-Banner_Metal_Specular.png
+map_Pm textures/M-Banner_Metal_Specular.png
+map_d textures/Banner_Metal_BaseColor.png
+
+newmtl Bistro_Sign_Letters
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Bistro_Sign_Letters_BaseColor.png
+map_Pr textures/r-Bistro_Sign_Letters_Specular.png
+map_Pm textures/M-Bistro_Sign_Letters_Specular.png
+map_d textures/Bistro_Sign_Letters_BaseColor.png
+
+newmtl Bistro_Sign_Main
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Bistro_Sign_Main_BaseColor.png
+map_Pr textures/r-Bistro_Sign_Main_Specular.png
+map_Pm textures/M-Bistro_Sign_Main_Specular.png
+map_d textures/Bistro_Sign_Main_BaseColor.png
+
+newmtl Bollards
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Bollards_BaseColor.png
+map_Pr textures/r-Bollards_Specular.png
+map_Pm textures/M-Bollards_Specular.png
+map_d textures/Bollards_BaseColor.png
+
+newmtl Chimneys_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Chimneys_Metal_BaseColor.png
+map_Pr textures/r-Chimneys_Metal_Specular.png
+map_Pm textures/M-Chimneys_Metal_Specular.png
+map_d textures/Chimneys_Metal_BaseColor.png
+
+newmtl Concrete
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Concrete_BaseColor.png
+map_Pr textures/r-Concrete_Specular.png
+map_Pm textures/M-Concrete_Specular.png
+map_d textures/Concrete_BaseColor.png
+
+newmtl Concrete2
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Concrete2_BaseColor.png
+map_Pr textures/r-Concrete2_Specular.png
+map_Pm textures/M-Concrete2_Specular.png
+map_d textures/Concrete2_BaseColor.png
+
+newmtl Concrete3
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Concrete3_BaseColor.png
+map_Pr textures/r-Concrete3_Specular.png
+map_Pm textures/M-Concrete3_Specular.png
+map_d textures/Concrete3_BaseColor.png
+
+newmtl Concrete_Striped
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Concrete_Striped_BaseColor.png
+map_Pr textures/r-Concrete_Striped_Specular.png
+map_Pm textures/M-Concrete_Striped_Specular.png
+map_d textures/Concrete_Striped_BaseColor.png
+
+newmtl ElectricBox
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/ElectricBox_BaseColor.png
+map_Pr textures/r-ElectricBox_Specular.png
+map_Pm textures/M-ElectricBox_Specular.png
+map_d textures/ElectricBox_BaseColor.png
+
+newmtl Emissive_StreetLight
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Emissive_StreetLight_BaseColor.png
+map_Pr textures/r-Emissive_StreetLight_Specular.png
+map_Pm textures/M-Emissive_StreetLight_Specular.png
+map_Ke textures/Emissive_StreetLight_Emissive.png
+map_d textures/Emissive_StreetLight_BaseColor.png
+
+newmtl Foliage_Bux_Hedges46.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Bux_Hedges46_BaseColor.png
+map_Pr textures/r-Foliage_Bux_Hedges46_Specular.png
+map_Pm textures/M-Foliage_Bux_Hedges46_Specular.png
+map_d textures/Foliage_Bux_Hedges46_BaseColor.png
+
+newmtl Foliage_Flowers.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Flowers_BaseColor.png
+map_Pr textures/r-Foliage_Flowers_Specular.png
+map_Pm textures/M-Foliage_Flowers_Specular.png
+map_d textures/Foliage_Flowers_BaseColor.png
+
+newmtl Foliage_Ivy_branches
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Ivy_branches_BaseColor.png
+map_Pr textures/r-Foliage_Ivy_branches_Specular.png
+map_Pm textures/M-Foliage_Ivy_branches_Specular.png
+map_d textures/Foliage_Ivy_branches_BaseColor.png
+
+newmtl Foliage_Ivy_leaf_a.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Ivy_leaf_a_BaseColor.png
+map_Pr textures/r-Foliage_Ivy_leaf_a_Specular.png
+map_Pm textures/M-Foliage_Ivy_leaf_a_Specular.png
+map_d textures/Foliage_Ivy_leaf_a_BaseColor.png
+
+newmtl Foliage_Leaves.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Leaves_BaseColor.png
+map_Pr textures/r-Foliage_Leaves_Specular.png
+map_Pm textures/M-Foliage_Leaves_Specular.png
+map_d textures/Foliage_Leaves_BaseColor.png
+
+newmtl Foliage_Linde_Tree_Large_Green_Leaves.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Linde_Tree_Large_Green_Leaves_BaseColor.png
+map_Pr textures/r-Foliage_Linde_Tree_Large_Green_Leaves_Specular.png
+map_Pm textures/M-Foliage_Linde_Tree_Large_Green_Leaves_Specular.png
+map_d textures/Foliage_Linde_Tree_Large_Green_Leaves_BaseColor.png
+
+newmtl Foliage_Linde_Tree_Large_Orange_Leaves.DoubleSided
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Linde_Tree_Large_Orange_Leaves_BaseColor.png
+map_Pr textures/r-Foliage_Linde_Tree_Large_Orange_Leaves_Specular.png
+map_Pm textures/M-Foliage_Linde_Tree_Large_Orange_Leaves_Specular.png
+map_d textures/Foliage_Linde_Tree_Large_Orange_Leaves_BaseColor.png
+
+newmtl Foliage_Linde_Tree_Large_Trunk
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Linde_Tree_Large_Trunk_BaseColor.png
+map_Pr textures/r-Foliage_Linde_Tree_Large_Trunk_Specular.png
+map_Pm textures/M-Foliage_Linde_Tree_Large_Trunk_Specular.png
+map_d textures/Foliage_Linde_Tree_Large_Trunk_BaseColor.png
+
+newmtl Foliage_Paris_Flowers
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Paris_Flowers_BaseColor.png
+map_Pr textures/r-Foliage_Paris_Flowers_Specular.png
+map_Pm textures/M-Foliage_Paris_Flowers_Specular.png
+map_d textures/Foliage_Paris_Flowers_BaseColor.png
+
+newmtl Foliage_Trunk
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Foliage_Trunk_BaseColor.png
+map_Pr textures/r-Foliage_Trunk_Specular.png
+map_Pm textures/M-Foliage_Trunk_Specular.png
+map_d textures/Foliage_Trunk_BaseColor.png
+
+newmtl LanternEmissive
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/LanternEmissive_BaseColor.png
+map_Pr textures/r-LanternEmissive_Specular.png
+map_Pm textures/M-LanternEmissive_Specular.png
+map_d textures/LanternEmissive_BaseColor.png
+
+newmtl MASTER_Awning_Beams
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Awning_Beams_BaseColor.png
+map_Pr textures/r-MASTER_Awning_Beams_Specular.png
+map_Pm textures/M-MASTER_Awning_Beams_Specular.png
+map_d textures/MASTER_Awning_Beams_BaseColor.png
+
+newmtl MASTER_Awning_Fabric_Cyan
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Awning_Fabric_Cyan_BaseColor.png
+map_Pr textures/r-MASTER_Awning_Fabric_Cyan_Specular.png
+map_Pm textures/M-MASTER_Awning_Fabric_Cyan_Specular.png
+map_d textures/MASTER_Awning_Fabric_Cyan_BaseColor.png
+
+newmtl MASTER_Awning_Fabric_Red
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Awning_Fabric_Red_BaseColor.png
+map_Pr textures/r-MASTER_Awning_Fabric_Red_Specular.png
+map_Pm textures/M-MASTER_Awning_Fabric_Red_Specular.png
+map_d textures/MASTER_Awning_Fabric_Red_BaseColor.png
+
+newmtl MASTER_Bistro_Main_Door
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Bistro_Main_Door_BaseColor.png
+map_Pr textures/r-MASTER_Bistro_Main_Door_Specular.png
+map_Pm textures/M-MASTER_Bistro_Main_Door_Specular.png
+map_d textures/MASTER_Bistro_Main_Door_BaseColor.png
+
+newmtl MASTER_Black_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Black_Metal_BaseColor.png
+map_Pr textures/r-MASTER_Black_Metal_Specular.png
+map_Pm textures/M-MASTER_Black_Metal_Specular.png
+map_d textures/MASTER_Black_Metal_BaseColor.png
+
+newmtl MASTER_Book_Covers
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Book_Covers_BaseColor.png
+map_Pr textures/r-MASTER_Book_Covers_Specular.png
+map_Pm textures/M-MASTER_Book_Covers_Specular.png
+map_d textures/MASTER_Book_Covers_BaseColor.png
+
+newmtl MASTER_Boulangerie
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Boulangerie_BaseColor.png
+map_Pr textures/r-MASTER_Boulangerie_Specular.png
+map_Pm textures/M-MASTER_Boulangerie_Specular.png
+map_d textures/MASTER_Boulangerie_BaseColor.png
+
+newmtl MASTER_Brick_Large_Beige_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Brick_Large_Beige_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Brick_Large_Beige_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Brick_Large_Beige_BLENDSHADER_Specular.png
+map_d textures/MASTER_Brick_Large_Beige_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Brick_Large_White
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Brick_Large_White_BaseColor.png
+map_Pr textures/r-MASTER_Brick_Large_White_Specular.png
+map_Pm textures/M-MASTER_Brick_Large_White_Specular.png
+map_d textures/MASTER_Brick_Large_White_BaseColor.png
+
+newmtl MASTER_Brick_Small_Red
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Brick_Small_Red_BaseColor.png
+map_Pr textures/r-MASTER_Brick_Small_Red_Specular.png
+map_Pm textures/M-MASTER_Brick_Small_Red_Specular.png
+map_d textures/MASTER_Brick_Small_Red_BaseColor.png
+
+newmtl MASTER_Brick_Small_Red_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Brick_Small_Red_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Brick_Small_Red_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Brick_Small_Red_BLENDSHADER_Specular.png
+map_d textures/MASTER_Brick_Small_Red_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Bronze_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Bronze_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Bronze_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Bronze_BLENDSHADER_Specular.png
+map_d textures/MASTER_Bronze_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Building_Details
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Building_Details_BaseColor.png
+map_Pr textures/r-MASTER_Building_Details_Specular.png
+map_Pm textures/M-MASTER_Building_Details_Specular.png
+map_d textures/MASTER_Building_Details_BaseColor.png
+
+newmtl MASTER_Concrete
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Specular.png
+map_Pm textures/M-MASTER_Concrete_Specular.png
+map_d textures/MASTER_Concrete_BaseColor.png
+
+newmtl MASTER_Concrete1
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete1_BaseColor.png
+map_Pr textures/r-MASTER_Concrete1_Specular.png
+map_Pm textures/M-MASTER_Concrete1_Specular.png
+map_d textures/MASTER_Concrete1_BaseColor.png
+
+newmtl MASTER_Concrete_Grooved
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Grooved_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Grooved_Specular.png
+map_Pm textures/M-MASTER_Concrete_Grooved_Specular.png
+map_d textures/MASTER_Concrete_Grooved_BaseColor.png
+
+newmtl MASTER_Concrete_Plaster
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Plaster_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Plaster_Specular.png
+map_Pm textures/M-MASTER_Concrete_Plaster_Specular.png
+map_d textures/MASTER_Concrete_Plaster_BaseColor.png
+
+newmtl MASTER_Concrete_Plaster1_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Plaster1_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Plaster1_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Concrete_Plaster1_BLENDSHADER_Specular.png
+map_d textures/MASTER_Concrete_Plaster1_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Concrete_Smooth
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Smooth_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Smooth_Specular.png
+map_Pm textures/M-MASTER_Concrete_Smooth_Specular.png
+map_d textures/MASTER_Concrete_Smooth_BaseColor.png
+
+newmtl MASTER_Concrete_Smooth_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Smooth_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Smooth_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Concrete_Smooth_BLENDSHADER_Specular.png
+map_d textures/MASTER_Concrete_Smooth_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Concrete_White
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_White_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_White_Specular.png
+map_Pm textures/M-MASTER_Concrete_White_Specular.png
+map_d textures/MASTER_Concrete_White_BaseColor.png
+
+newmtl MASTER_Concrete_Yellow
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Concrete_Yellow_BaseColor.png
+map_Pr textures/r-MASTER_Concrete_Yellow_Specular.png
+map_Pm textures/M-MASTER_Concrete_Yellow_Specular.png
+map_d textures/MASTER_Concrete_Yellow_BaseColor.png
+
+newmtl MASTER_Curtains
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Curtains_BaseColor.png
+map_Pr textures/r-MASTER_Curtains_Specular.png
+map_Pm textures/M-MASTER_Curtains_Specular.png
+map_d textures/MASTER_Curtains_BaseColor.png
+
+newmtl MASTER_Details_Dark
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Details_Dark_BaseColor.png
+map_Pr textures/r-MASTER_Details_Dark_Specular.png
+map_Pm textures/M-MASTER_Details_Dark_Specular.png
+map_d textures/MASTER_Details_Dark_BaseColor.png
+
+newmtl MASTER_Doors
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Doors_BaseColor.png
+map_Pr textures/r-MASTER_Doors_Specular.png
+map_Pm textures/M-MASTER_Doors_Specular.png
+map_d textures/MASTER_Doors_BaseColor.png
+
+newmtl MASTER_Focus
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Focus_BaseColor.png
+map_Pr textures/r-MASTER_Focus_Specular.png
+map_Pm textures/M-MASTER_Focus_Specular.png
+map_d textures/MASTER_Focus_BaseColor.png
+
+newmtl MASTER_Focus_Ornament
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Focus_Ornament_BaseColor.png
+map_Pr textures/r-MASTER_Focus_Ornament_Specular.png
+map_Pm textures/M-MASTER_Focus_Ornament_Specular.png
+map_d textures/MASTER_Focus_Ornament_BaseColor.png
+
+newmtl MASTER_Forge_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Forge_Metal_BaseColor.png
+map_Pr textures/r-MASTER_Forge_Metal_Specular.png
+map_Pm textures/M-MASTER_Forge_Metal_Specular.png
+map_d textures/MASTER_Forge_Metal_BaseColor.png
+
+newmtl MASTER_Frosted_Glass
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Frosted_Glass_BaseColor.png
+map_Pr textures/r-MASTER_Frosted_Glass_Specular.png
+map_Pm textures/M-MASTER_Frosted_Glass_Specular.png
+map_d textures/MASTER_Frosted_Glass_BaseColor.png
+
+newmtl MASTER_Glass_Dirty
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Glass_Dirty_BaseColor.png
+map_Pr textures/r-MASTER_Glass_Dirty_Specular.png
+map_Pm textures/M-MASTER_Glass_Dirty_Specular.png
+map_d textures/MASTER_Glass_Dirty_BaseColor.png
+
+newmtl MASTER_Glass_Dirty_MASKED
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Glass_Dirty_MASKED_BaseColor.png
+map_Pr textures/r-MASTER_Glass_Dirty_MASKED_Specular.png
+map_Pm textures/M-MASTER_Glass_Dirty_MASKED_Specular.png
+map_d textures/MASTER_Glass_Dirty_MASKED_BaseColor.png
+
+newmtl MASTER_Glass_Exterior
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Glass_Exterior_BaseColor.png
+map_Pr textures/r-MASTER_Glass_Exterior_Specular.png
+map_Pm textures/M-MASTER_Glass_Exterior_Specular.png
+map_d textures/MASTER_Glass_Exterior_BaseColor.png
+
+newmtl MASTER_Grain_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Grain_Metal_BaseColor.png
+map_Pr textures/r-MASTER_Grain_Metal_Specular.png
+map_Pm textures/M-MASTER_Grain_Metal_Specular.png
+map_d textures/MASTER_Grain_Metal_BaseColor.png
+
+newmtl MASTER_Light_Bulb
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Light_Bulb_BaseColor.png
+map_Pr textures/r-MASTER_Light_Bulb_Specular.png
+map_Pm textures/M-MASTER_Light_Bulb_Specular.png
+map_d textures/MASTER_Light_Bulb_BaseColor.png
+
+newmtl MASTER_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Metal_BaseColor.png
+map_Pr textures/r-MASTER_Metal_Specular.png
+map_Pm textures/M-MASTER_Metal_Specular.png
+map_d textures/MASTER_Metal_BaseColor.png
+
+newmtl MASTER_Metal_Pipe
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Metal_Pipe_BaseColor.png
+map_Pr textures/r-MASTER_Metal_Pipe_Specular.png
+map_Pm textures/M-MASTER_Metal_Pipe_Specular.png
+map_d textures/MASTER_Metal_Pipe_BaseColor.png
+
+newmtl MASTER_Plastic
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Plastic_BaseColor.png
+map_Pr textures/r-MASTER_Plastic_Specular.png
+map_Pm textures/M-MASTER_Plastic_Specular.png
+map_d textures/MASTER_Plastic_BaseColor.png
+
+newmtl MASTER_Rollup_Door
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Rollup_Door_BaseColor.png
+map_Pr textures/r-MASTER_Rollup_Door_Specular.png
+map_Pm textures/M-MASTER_Rollup_Door_Specular.png
+map_d textures/MASTER_Rollup_Door_BaseColor.png
+
+newmtl MASTER_Roofing_Metal_01
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Roofing_Metal_01_BaseColor.png
+map_Pr textures/r-MASTER_Roofing_Metal_01_Specular.png
+map_Pm textures/M-MASTER_Roofing_Metal_01_Specular.png
+map_d textures/MASTER_Roofing_Metal_01_BaseColor.png
+
+newmtl MASTER_Roofing_Shingle_Green
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Roofing_Shingle_Green_BaseColor.png
+map_Pr textures/r-MASTER_Roofing_Shingle_Green_Specular.png
+map_Pm textures/M-MASTER_Roofing_Shingle_Green_Specular.png
+map_d textures/MASTER_Roofing_Shingle_Green_BaseColor.png
+
+newmtl MASTER_Roofing_Shingle_Grey
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Roofing_Shingle_Grey_BaseColor.png
+map_Pr textures/r-MASTER_Roofing_Shingle_Grey_Specular.png
+map_Pm textures/M-MASTER_Roofing_Shingle_Grey_Specular.png
+map_d textures/MASTER_Roofing_Shingle_Grey_BaseColor.png
+
+newmtl MASTER_Room_Interior
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Room_Interior_BaseColor.png
+map_Pr textures/r-MASTER_Room_Interior_Specular.png
+map_Pm textures/M-MASTER_Room_Interior_Specular.png
+map_d textures/MASTER_Room_Interior_BaseColor.png
+
+newmtl MASTER_Side_Letters
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Side_Letters_BaseColor.png
+map_Pr textures/r-MASTER_Side_Letters_Specular.png
+map_Pm textures/M-MASTER_Side_Letters_Specular.png
+map_d textures/MASTER_Side_Letters_BaseColor.png
+
+newmtl MASTER_Trim_Cornice
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Trim_Cornice_BaseColor.png
+map_Pr textures/r-MASTER_Trim_Cornice_Specular.png
+map_Pm textures/M-MASTER_Trim_Cornice_Specular.png
+map_d textures/MASTER_Trim_Cornice_BaseColor.png
+
+newmtl MASTER_Wood_Brown
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Brown_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Brown_Specular.png
+map_Pm textures/M-MASTER_Wood_Brown_Specular.png
+map_d textures/MASTER_Wood_Brown_BaseColor.png
+
+newmtl MASTER_Wood_Painted3
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Painted3_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Painted3_Specular.png
+map_Pm textures/M-MASTER_Wood_Painted3_Specular.png
+map_d textures/MASTER_Wood_Painted3_BaseColor.png
+
+newmtl MASTER_Wood_Painted_Cyan
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Painted_Cyan_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Painted_Cyan_Specular.png
+map_Pm textures/M-MASTER_Wood_Painted_Cyan_Specular.png
+map_d textures/MASTER_Wood_Painted_Cyan_BaseColor.png
+
+newmtl MASTER_Wood_Painted_Green
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Painted_Green_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Painted_Green_Specular.png
+map_Pm textures/M-MASTER_Wood_Painted_Green_Specular.png
+map_d textures/MASTER_Wood_Painted_Green_BaseColor.png
+
+newmtl MASTER_Wood_Painted_Green_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Painted_Green_BLENDSHADER_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Painted_Green_BLENDSHADER_Specular.png
+map_Pm textures/M-MASTER_Wood_Painted_Green_BLENDSHADER_Specular.png
+map_d textures/MASTER_Wood_Painted_Green_BLENDSHADER_BaseColor.png
+
+newmtl MASTER_Wood_Polished
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MASTER_Wood_Polished_BaseColor.png
+map_Pr textures/r-MASTER_Wood_Polished_Specular.png
+map_Pm textures/M-MASTER_Wood_Polished_Specular.png
+map_d textures/MASTER_Wood_Polished_BaseColor.png
+
+newmtl MenuSign_01
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MenuSign_01_BaseColor.png
+map_Pr textures/r-MenuSign_01_Specular.png
+map_Pm textures/M-MenuSign_01_Specular.png
+map_d textures/MenuSign_01_BaseColor.png
+
+newmtl MenuSign_02_Glass
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MenuSign_02_Glass_BaseColor.png
+map_Pr textures/r-MenuSign_02_Glass_Specular.png
+map_Pm textures/M-MenuSign_02_Glass_Specular.png
+map_d textures/MenuSign_02_Glass_BaseColor.png
+
+newmtl MenuSign_02_Mesh
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/MenuSign_02_Mesh_BaseColor.png
+map_Pr textures/r-MenuSign_02_Mesh_Specular.png
+map_Pm textures/M-MenuSign_02_Mesh_Specular.png
+map_d textures/MenuSign_02_Mesh_BaseColor.png
+
+newmtl NapkinHolder
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/NapkinHolder_BaseColor.png
+map_Pr textures/r-NapkinHolder_Specular.png
+map_Pm textures/M-NapkinHolder_Specular.png
+map_d textures/NapkinHolder_BaseColor.png
+
+newmtl Paris_Chair_01
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_Chair_01_BaseColor.png
+map_Pr textures/r-Paris_Chair_01_Specular.png
+map_Pm textures/M-Paris_Chair_01_Specular.png
+map_d textures/Paris_Chair_01_BaseColor.png
+
+newmtl Paris_LiquorBottle_01_Caps
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_LiquorBottle_01_Caps_BaseColor.png
+map_Pr textures/r-Paris_LiquorBottle_01_Caps_Specular.png
+map_Pm textures/M-Paris_LiquorBottle_01_Caps_Specular.png
+map_d textures/Paris_LiquorBottle_01_Caps_BaseColor.png
+
+newmtl Paris_LiquorBottle_01_Glass_Wine
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_LiquorBottle_01_Glass_Wine_BaseColor.png
+map_Pr textures/r-Paris_LiquorBottle_01_Glass_Wine_Specular.png
+map_Pm textures/M-Paris_LiquorBottle_01_Glass_Wine_Specular.png
+map_d textures/Paris_LiquorBottle_01_Glass_Wine_BaseColor.png
+
+newmtl Paris_LiquorBottle_01_Labels
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_LiquorBottle_01_Labels_BaseColor.png
+map_d textures/Paris_LiquorBottle_01_Labels_BaseColor.png
+
+newmtl Paris_StreetPivot
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StreetPivot_BaseColor.png
+map_Pr textures/r-Paris_StreetPivot_Specular.png
+map_Pm textures/M-Paris_StreetPivot_Specular.png
+map_d textures/Paris_StreetPivot_BaseColor.png
+
+newmtl Paris_StreetSign_01
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StreetSign_01_BaseColor.png
+map_Pr textures/r-Paris_StreetSign_01_Specular.png
+map_Pm textures/M-Paris_StreetSign_01_Specular.png
+map_d textures/Paris_StreetSign_01_BaseColor.png
+
+newmtl Paris_StringLights_01_Blue_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_Blue_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_Blue_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_Blue_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_Blue_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_Blue_Color_Emissive_BaseColor.png
+
+newmtl Paris_StringLights_01_Green_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_Green_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_Green_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_Green_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_Green_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_Green_Color_Emissive_BaseColor.png
+
+newmtl Paris_StringLights_01_Orange_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_Orange_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_Orange_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_Orange_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_Orange_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_Orange_Color_Emissive_BaseColor.png
+
+newmtl Paris_StringLights_01_Pink_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_Pink_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_Pink_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_Pink_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_Pink_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_Pink_Color_Emissive_BaseColor.png
+
+newmtl Paris_StringLights_01_Red_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_Red_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_Red_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_Red_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_Red_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_Red_Color_Emissive_BaseColor.png
+
+newmtl Paris_StringLights_01_White_Color
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_White_Color_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_White_Color_Specular.png
+map_Pm textures/M-Paris_StringLights_01_White_Color_Specular.png
+map_d textures/Paris_StringLights_01_White_Color_BaseColor.png
+
+newmtl Paris_StringLights_01_White_Color_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_StringLights_01_White_Color_Emissive_BaseColor.png
+map_Pr textures/r-Paris_StringLights_01_White_Color_Emissive_Specular.png
+map_Pm textures/M-Paris_StringLights_01_White_Color_Emissive_Specular.png
+map_Ke textures/Paris_StringLights_01_White_Color_Emissive_Emissive.png
+map_d textures/Paris_StringLights_01_White_Color_Emissive_BaseColor.png
+
+newmtl Paris_Table_Terrace
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_Table_Terrace_BaseColor.png
+map_Pr textures/r-Paris_Table_Terrace_Specular.png
+map_Pm textures/M-Paris_Table_Terrace_Specular.png
+map_d textures/Paris_Table_Terrace_BaseColor.png
+
+newmtl Paris_TrafficSign_A
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Paris_TrafficSign_A_BaseColor.png
+map_Pr textures/r-Paris_TrafficSign_A_Specular.png
+map_Pm textures/M-Paris_TrafficSign_A_Specular.png
+map_d textures/Paris_TrafficSign_A_BaseColor.png
+
+newmtl Pavement_Brick_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Brick_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Brick_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Brick_BLENDSHADER_Specular.png
+map_d textures/Pavement_Brick_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobble_Leaves_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobble_Leaves_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobble_Leaves_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobble_Leaves_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobble_Leaves_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobblestone_01_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_01_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_01_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_01_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobblestone_01_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobblestone_02
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_02_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_02_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_02_Specular.png
+map_d textures/Pavement_Cobblestone_02_BaseColor.png
+
+newmtl Pavement_Cobblestone_Big_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_Big_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_Big_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_Big_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobblestone_Big_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobblestone_Small_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_Small_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_Small_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_Small_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobblestone_Small_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobblestone_Wet_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_Wet_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_Wet_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_Wet_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobblestone_Wet_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Cobblestone_Wet_Leaves_BLENDSHADER
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Cobblestone_Wet_Leaves_BLENDSHADER_BaseColor.png
+map_Pr textures/r-Pavement_Cobblestone_Wet_Leaves_BLENDSHADER_Specular.png
+# map_Pm textures/M-Pavement_Cobblestone_Wet_Leaves_BLENDSHADER_Specular.png
+map_d textures/Pavement_Cobblestone_Wet_Leaves_BLENDSHADER_BaseColor.png
+
+newmtl Pavement_Curbstones
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Curbstones_BaseColor.png
+map_Pr textures/r-Pavement_Curbstones_Specular.png
+# map_Pm textures/M-Pavement_Curbstones_Specular.png
+map_d textures/Pavement_Curbstones_BaseColor.png
+
+newmtl Pavement_Ground_Wet
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Ground_Wet_BaseColor.png
+map_Pr textures/r-Pavement_Ground_Wet_Specular.png
+# map_Pm textures/M-Pavement_Ground_Wet_Specular.png
+map_d textures/Pavement_Ground_Wet_BaseColor.png
+
+newmtl Pavement_Manhole_Cover
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Pavement_Manhole_Cover_BaseColor.png
+map_Pr textures/r-Pavement_Manhole_Cover_Specular.png
+# map_Pm textures/M-Pavement_Manhole_Cover_Specular.png
+map_d textures/Pavement_Manhole_Cover_BaseColor.png
+
+newmtl Plantpots
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Plantpots_BaseColor.png
+map_Pr textures/r-Plantpots_Specular.png
+map_Pm textures/M-Plantpots_Specular.png
+map_d textures/Plantpots_BaseColor.png
+
+newmtl Plaster
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Plaster_BaseColor.png
+map_Pr textures/r-Plaster_Specular.png
+map_Pm textures/M-Plaster_Specular.png
+map_d textures/Plaster_BaseColor.png
+
+newmtl Shopsign_Bakery
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Shopsign_Bakery_BaseColor.png
+map_Pr textures/r-Shopsign_Bakery_Specular.png
+map_Pm textures/M-Shopsign_Bakery_Specular.png
+map_d textures/Shopsign_Bakery_BaseColor.png
+
+newmtl Shopsign_Book_Store_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Shopsign_Book_Store_Emissive_BaseColor.png
+map_Pr textures/r-Shopsign_Book_Store_Emissive_Specular.png
+map_Pm textures/M-Shopsign_Book_Store_Emissive_Specular.png
+map_Ke textures/Shopsign_Book_Store_Emissive_Emissive.png
+map_d textures/Shopsign_Book_Store_Emissive_BaseColor.png
+
+newmtl Shopsign_Pharmacy_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Shopsign_Pharmacy_Emissive_BaseColor.png
+map_Pr textures/r-Shopsign_Pharmacy_Emissive_Specular.png
+map_Pm textures/M-Shopsign_Pharmacy_Emissive_Specular.png
+map_Ke textures/Shopsign_Pharmacy_Emissive_Emissive.png
+map_d textures/Shopsign_Pharmacy_Emissive_BaseColor.png
+
+newmtl Shopsign_Ties_Shop
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Shopsign_Ties_Shop_BaseColor.png
+map_Pr textures/r-Shopsign_Ties_Shop_Specular.png
+map_Pm textures/M-Shopsign_Ties_Shop_Specular.png
+map_d textures/Shopsign_Ties_Shop_BaseColor.png
+
+newmtl Sidewalkbarrier
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Sidewalkbarrier_BaseColor.png
+map_Pr textures/r-Sidewalkbarrier_Specular.png
+map_Pm textures/M-Sidewalkbarrier_Specular.png
+map_d textures/Sidewalkbarrier_BaseColor.png
+
+newmtl Spotlight_Emissive
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Spotlight_Emissive_BaseColor.png
+map_Pr textures/r-Spotlight_Emissive_Specular.png
+map_Pm textures/M-Spotlight_Emissive_Specular.png
+map_d textures/Spotlight_Emissive_BaseColor.png
+
+newmtl Spotlight_Glass_Emissive
+Kd 1.000000 1.000000 1.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Spotlight_Glass_Emissive_BaseColor.png
+map_Pr textures/r-Spotlight_Glass_Emissive_Specular.png
+map_Pm textures/M-Spotlight_Glass_Emissive_Specular.png
+map_Ke textures/Spotlight_Glass_Emissive_Emissive.png
+map_d textures/Spotlight_Glass_Emissive_BaseColor.png
+
+newmtl Spotlight_Main
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Spotlight_Main_BaseColor.png
+map_Pr textures/r-Spotlight_Main_Specular.png
+map_Pm textures/M-Spotlight_Main_Specular.png
+map_d textures/Spotlight_Main_BaseColor.png
+
+newmtl Streetlight_Chains
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Streetlight_Chains_BaseColor.png
+map_Pr textures/r-Streetlight_Chains_Specular.png
+map_Pm textures/M-Streetlight_Chains_Specular.png
+map_d textures/Streetlight_Chains_BaseColor.png
+
+newmtl Streetlight_Metal
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Streetlight_Metal_BaseColor.png
+map_Pr textures/r-Streetlight_Metal_Specular.png
+map_Pm textures/M-Streetlight_Metal_Specular.png
+map_d textures/Streetlight_Metal_BaseColor.png
+
+newmtl Streetlight_Support_Bulb
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Streetlight_Support_Bulb_BaseColor.png
+map_Pr textures/r-Streetlight_Support_Bulb_Specular.png
+map_Pm textures/M-Streetlight_Support_Bulb_Specular.png
+map_d textures/Streetlight_Support_Bulb_BaseColor.png
+
+newmtl Stringlights
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Stringlights_BaseColor.png
+map_Pr textures/r-Stringlights_Specular.png
+map_Pm textures/M-Stringlights_Specular.png
+map_d textures/Stringlights_BaseColor.png
+
+newmtl Trashcan
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Trashcan_BaseColor.png
+map_Pr textures/r-Trashcan_Specular.png
+map_Pm textures/M-Trashcan_Specular.png
+map_d textures/Trashcan_BaseColor.png
+
+newmtl Vespa
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Vespa_BaseColor.png
+map_Pr textures/r-Vespa_Specular.png
+map_Pm textures/M-Vespa_Specular.png
+map_d textures/Vespa_BaseColor.png
+
+newmtl Vespa_Headlight
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Vespa_Headlight_BaseColor.png
+map_Pr textures/r-Vespa_Headlight_Specular.png
+map_Pm textures/M-Vespa_Headlight_Specular.png
+map_d textures/Vespa_Headlight_BaseColor.png
+
+newmtl Vespa_Odometer
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Vespa_Odometer_BaseColor.png
+map_Pr textures/r-Vespa_Odometer_Specular.png
+map_Pm textures/M-Vespa_Odometer_Specular.png
+map_d textures/Vespa_Odometer_BaseColor.png
+
+newmtl Vespa_Odometer_Glass
+Kd 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 3
+Pr 0.552786
+Pm 1.000000
+map_Kd textures/Vespa_Odometer_Glass_BaseColor.png
+map_Pr textures/r-Vespa_Odometer_Glass_Specular.png
+map_Pm textures/M-Vespa_Odometer_Glass_Specular.png
+map_d textures/Vespa_Odometer_Glass_BaseColor.png
