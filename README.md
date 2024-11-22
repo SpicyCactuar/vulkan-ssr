@@ -3,7 +3,7 @@
 Vulkan application that showcases the capabilities of Screen-Space Reflections.
 It offers two algorithms to resolve reflections:
 
-* 3D Ray Marching - [2011, Souta et. al](https://www.advances.realtimerendering.com/s2011/SousaSchulzKazyan%20-%20CryEngine%203%20Rendering%20Secrets%20((Siggraph%202011%20Advances%20in%20Real-Time%20Rendering%20Course).ppt)
+* 3D Ray Marching - [2011, Souta et. al](https://www.advances.realtimerendering.com/s2011/SousaSchulzKazyan%20-%20CryEngine%203%20Rendering%20Secrets%20\((Siggraph%202011%20Advances%20in%20Real-Time%20Rendering%20Course).ppt)
 * Perspective-correct DDA - [2014, Mara et. al](https://www.jcgt.org/published/0003/04/04/)
 
 The Deferred Rendering pipeline consists of the following steps:
@@ -16,9 +16,7 @@ During the Offscreen pass, the G-Buffer is constructed with the material and sha
 Subsequently, this data is leverage to determine whether the pixel microfacet is reflective and a single
 SSR ray is traced. The reflected colour is dynamically constructed from the G-Buffer.
 
-```
-// TODO: Record showcase
-```
+![vulkan-ssr](https://github.com/user-attachments/assets/3951ec2d-4257-49b0-9aee-3cd2fbf0d74c)
 
 ## Project Structure
 
