@@ -117,6 +117,5 @@ Attributions to third-party assets are detailed in the respective `assets-src/<s
 
 ## TODOs
 
-* [ ] Check cross-platform compatibility
 * [ ] Refactor `benchmark.cpp` to use delta Δt instead of absolute frame time
 * [ ] Automatically detect changes to `shade.glsl` for shader recompilation
