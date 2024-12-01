@@ -15,8 +15,13 @@ The Deferred Rendering pipeline consists of the following steps:
 During the Offscreen pass, the G-Buffer is constructed with the material and shadowing properties.
 Subsequently, this data is leverage to determine whether the pixel microfacet is reflective and a single
 SSR ray is traced. The reflected colour is dynamically constructed from the G-Buffer.
+The shared file `shade.glsl` contains the bulk of the PBR computation.
 
 ![vulkan-ssr](https://github.com/user-attachments/assets/3951ec2d-4257-49b0-9aee-3cd2fbf0d74c)
+
+## Pipeline Overview
+
+![vulkan-ssr-pipeline-reduced](https://github.com/user-attachments/assets/cd3501f7-8003-4bc6-aa91-576b7af055b8)
 
 ## Project Structure
 
