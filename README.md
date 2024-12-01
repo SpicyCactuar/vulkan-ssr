@@ -26,7 +26,7 @@ The shared file `shade.glsl` contains the bulk of the PBR computation.
 ## Project Structure
 
 ```plaintext
-vulkan-suntemple/
+vulkan-ssr/
 ├── assets-bake/           # Asset baking source code
 ├── assets-src/            # Static assets (to be baked)
 ├── third-party/           # Bundled third party libraries
@@ -71,7 +71,7 @@ Open generated Xcode project.
 
 ```shell
 bin/assets-bake-{target}.exe
-bin/vksuntemple-{target}.exe <scene-name> [tag]
+bin/ssr-{target}.exe <scene-name> [tag]
 ```
 
 Executables have `.exe` extension for all platforms, but binaries are platform-specific.
