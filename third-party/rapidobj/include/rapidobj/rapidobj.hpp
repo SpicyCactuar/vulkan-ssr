@@ -4,7 +4,7 @@ rapidobj - Fast Wavefront .obj file loader
 
 Licensed under the MIT License <http://opensource.org/licenses/MIT>
 SPDX-License-Identifier: MIT
-Copyright (c) 2022 Slobodan Pavlic
+Copyright (c) 2024 Slobodan Pavlic
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -64,8 +64,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #endif
 
 #define RAPIDOBJ_VERSION_MAJOR 1
-#define RAPIDOBJ_VERSION_MINOR 0
-#define RAPIDOBJ_VERSION_PATCH 1
+#define RAPIDOBJ_VERSION_MINOR 1
+#define RAPIDOBJ_VERSION_PATCH 0
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -4434,7 +4434,8 @@ struct SharedContext final {
 
     struct Debug final {
         struct IO final {
-            std::vector<int>                      n_requests{};
+            std::vector<int>                      num_requests{};
+            std::vector<size_t>                   num_bytes_read{};
             std::vector<std::chrono::nanoseconds> submit_time;
             std::vector<std::chrono::nanoseconds> wait_time;
         } io;
@@ -4590,10 +4591,6 @@ using FillFloats = FillElements<float>;
 using FillMaterialIds       = FillIds<int32_t>;
 using FillSmoothingGroupIds = FillIds<uint32_t>;
 
-using MergeTask =
-    std::variant<CopyBytes, CopyInts, CopyFloats, CopyIndices, FillFloats, FillMaterialIds, FillSmoothingGroupIds>;
-using MergeTasks = std::vector<MergeTask>;
-
 template <typename T>
 struct CopyElements final {
     CopyElements(T* dst, const T* src, size_t size) noexcept : m_dst(dst), m_src(src), m_size(size) {}
@@ -4610,18 +4607,7 @@ struct CopyElements final {
         return rapidobj_errc::Success;
     }
 
-    auto Subdivide(size_t num) const noexcept
-    {
-        auto begin = size_t{ 0 };
-        auto tasks = MergeTasks();
-        tasks.reserve(num);
-        for (size_t i = 0; i != num; ++i) {
-            auto end = (1 + i) * m_size / num;
-            tasks.push_back(CopyElements(m_dst + begin, m_src + begin, end - begin));
-            begin = end;
-        }
-        return tasks;
-    }
+    inline auto Subdivide(size_t num) const noexcept;
 
   private:
     T*       m_dst{};
@@ -4645,18 +4631,7 @@ struct FillElements final {
         return rapidobj_errc::Success;
     }
 
-    auto Subdivide(size_t num) const noexcept
-    {
-        auto begin = size_t{ 0 };
-        auto tasks = MergeTasks();
-        tasks.reserve(num);
-        for (size_t i = 0; i != num; ++i) {
-            auto end = (1 + i) * m_size / num;
-            tasks.push_back(FillElements(m_dst + begin, m_value, end - begin));
-            begin = end;
-        }
-        return tasks;
-    }
+    inline auto Subdivide(size_t num) const noexcept;
 
   private:
     T*      m_dst{};
@@ -4701,18 +4676,7 @@ struct FillIds final {
         return rapidobj_errc::Success;
     }
 
-    auto Subdivide(size_t num) const noexcept
-    {
-        auto begin = size_t{ 0 };
-        auto tasks = MergeTasks();
-        tasks.reserve(num);
-        for (size_t i = 0; i != num; ++i) {
-            auto end = (1 + i) * m_size / num;
-            tasks.push_back(FillIds(m_dst + begin, *m_src, end - begin, m_start + begin));
-            begin = end;
-        }
-        return tasks;
-    }
+    inline auto Subdivide(size_t num) const noexcept;
 
   private:
     T*                             m_dst{};
@@ -4777,18 +4741,7 @@ struct CopyIndices final {
         return rapidobj_errc::Success;
     }
 
-    auto Subdivide(size_t num) const noexcept
-    {
-        auto begin = size_t{ 0 };
-        auto tasks = MergeTasks();
-        tasks.reserve(num);
-        for (size_t i = 0; i != num; ++i) {
-            auto end = (1 + i) * m_size / num;
-            tasks.push_back(CopyIndices(m_dst + begin, m_src + begin, m_offset_flags, end - begin, m_offset, m_count));
-            begin = end;
-        }
-        return tasks;
-    }
+    inline auto Subdivide(size_t num) const noexcept;
 
   private:
     Index*             m_dst{};
@@ -4798,6 +4751,65 @@ struct CopyIndices final {
     AttributeInfo      m_offset{};
     AttributeInfo      m_count{};
 };
+
+using MergeTask =
+    std::variant<CopyBytes, CopyInts, CopyFloats, CopyIndices, FillFloats, FillMaterialIds, FillSmoothingGroupIds>;
+using MergeTasks = std::vector<MergeTask>;
+
+template <typename T>
+auto CopyElements<T>::Subdivide(size_t num) const noexcept
+{
+    auto begin = size_t{ 0 };
+    auto tasks = MergeTasks();
+    tasks.reserve(num);
+    for (size_t i = 0; i != num; ++i) {
+        auto end = (1 + i) * m_size / num;
+        tasks.push_back(CopyElements(m_dst + begin, m_src + begin, end - begin));
+        begin = end;
+    }
+    return tasks;
+}
+
+template <typename T>
+auto FillElements<T>::Subdivide(size_t num) const noexcept
+{
+    auto begin = size_t{ 0 };
+    auto tasks = MergeTasks();
+    tasks.reserve(num);
+    for (size_t i = 0; i != num; ++i) {
+        auto end = (1 + i) * m_size / num;
+        tasks.push_back(FillElements(m_dst + begin, m_value, end - begin));
+        begin = end;
+    }
+    return tasks;
+}
+
+template <typename T>
+auto FillIds<T>::Subdivide(size_t num) const noexcept
+{
+    auto begin = size_t{ 0 };
+    auto tasks = MergeTasks();
+    tasks.reserve(num);
+    for (size_t i = 0; i != num; ++i) {
+        auto end = (1 + i) * m_size / num;
+        tasks.push_back(FillIds(m_dst + begin, *m_src, end - begin, m_start + begin));
+        begin = end;
+    }
+    return tasks;
+}
+
+auto CopyIndices::Subdivide(size_t num) const noexcept
+{
+    auto begin = size_t{ 0 };
+    auto tasks = MergeTasks();
+    tasks.reserve(num);
+    for (size_t i = 0; i != num; ++i) {
+        auto end = (1 + i) * m_size / num;
+        tasks.push_back(CopyIndices(m_dst + begin, m_src + begin, m_offset_flags, end - begin, m_offset, m_count));
+        begin = end;
+    }
+    return tasks;
+}
 
 struct Reader {
     struct ReadResult final {
@@ -4813,12 +4825,14 @@ struct Reader {
     auto NumRequests() const noexcept { return m_num_requests; }
     auto SubmitTime() const noexcept { return m_submit_time; }
     auto WaitTime() const noexcept { return m_wait_time; }
+    auto BytesRead() const noexcept { return m_bytes_read; }
     auto Error() const noexcept { return m_error; }
 
   protected:
     int                      m_num_requests{};
     std::chrono::nanoseconds m_submit_time{};
     std::chrono::nanoseconds m_wait_time{};
+    size_t                   m_bytes_read{};
     std::error_code          m_error{};
 };
 
@@ -4905,13 +4919,21 @@ struct FileReader : Reader {
         auto t1 = std::chrono::steady_clock::now();
 
         auto result = pread64(m_fd, m_buffer, m_size, m_offset);
-        auto error  = result >= 0 ? std::error_code() : std::error_code(errno, std::system_category());
 
         auto t2 = std::chrono::steady_clock::now();
 
         m_wait_time += t2 - t1;
 
-        return error ? ReadResult{ 0, error } : ReadResult{ static_cast<size_t>(result), error };
+        if (result < 0) {
+            auto error = std::error_code(errno, std::system_category());
+            return ReadResult{ 0, error };
+        }
+
+        auto bytes_read = static_cast<size_t>(result);
+
+        m_bytes_read += bytes_read;
+
+        return ReadResult{ bytes_read, std::error_code() };
     }
 
   private:
@@ -5042,21 +5064,22 @@ struct FileReader : Reader {
         auto t1 = std::chrono::steady_clock::now();
 
         auto bytes_read = DWORD{};
-        auto error      = std::error_code();
         bool success    = GetOverlappedResult(m_handle, &m_overlapped, &bytes_read, TRUE);
-
-        if (!success) {
-            if (auto ec = GetLastError(); ec != ERROR_HANDLE_EOF) {
-                bytes_read = 0;
-                error      = std::error_code(ec, std::system_category());
-            }
-        }
 
         auto t2 = std::chrono::steady_clock::now();
 
         m_wait_time += t2 - t1;
 
-        return { bytes_read, error };
+        if (!success) {
+            if (auto ec = GetLastError(); ec != ERROR_HANDLE_EOF) {
+                auto error = std::error_code(ec, std::system_category());
+                return ReadResult{ 0, error };
+            }
+        }
+
+        m_bytes_read += bytes_read;
+
+        return { bytes_read, std::error_code() };
     }
 
   private:
@@ -5159,19 +5182,22 @@ struct FileReader : Reader {
     {
         auto t1 = std::chrono::steady_clock::now();
 
-        auto n_bytes_read = pread(m_fd, m_buffer, m_size, m_offset);
-        auto error        = std::error_code();
-
-        if (n_bytes_read == -1) {
-            n_bytes_read = 0;
-            error        = std::error_code(errno, std::system_category());
-        }
+        auto result = pread(m_fd, m_buffer, m_size, m_offset);
 
         auto t2 = std::chrono::steady_clock::now();
 
         m_wait_time += t2 - t1;
 
-        return { static_cast<size_t>(n_bytes_read), error };
+        if (result < 0) {
+            auto error = std::error_code(errno, std::system_category());
+            return ReadResult{ 0, error };
+        }
+
+        auto bytes_read = static_cast<size_t>(result);
+
+        m_bytes_read += bytes_read;
+
+        return ReadResult{ bytes_read, std::error_code() };
     }
 
   private:
@@ -5224,6 +5250,8 @@ struct StreamReader : Reader {
         auto t2 = std::chrono::steady_clock::now();
 
         m_wait_time += t2 - t1;
+
+        m_bytes_read += result.bytes_read;
 
         return result;
     }
@@ -5314,7 +5342,6 @@ inline std::string ComputeDebugStats(const std::vector<std::chrono::nanoseconds>
     auto min_index = size_t{};
     auto max_index = size_t{};
     auto avg_time  = std::chrono::nanoseconds{};
-    auto stddev    = std::chrono::nanoseconds{};
 
     for (size_t i = 0; i != population.size(); ++i) {
         auto sample = population[i];
@@ -5351,14 +5378,16 @@ inline std::string ComputeDebugStats(const std::vector<std::chrono::nanoseconds>
     return text;
 }
 
-inline std::string DumpDebug(const sys::File& file, const SharedContext& context)
+inline std::string DumpDebug(const SharedContext& context)
 {
     auto text = std::string();
 
-    auto population = std::vector<std::chrono::nanoseconds>(context.debug.io.n_requests.size());
+    auto population = std::vector<std::chrono::nanoseconds>(context.debug.io.num_requests.size());
 
-    for (size_t i = 0; i != context.debug.io.n_requests.size(); ++i) {
-        auto n          = context.debug.io.n_requests[i];
+    auto num_bytes_read = size_t{};
+
+    for (size_t i = 0; i != context.debug.io.num_requests.size(); ++i) {
+        auto n          = context.debug.io.num_requests[i];
         auto submit_ns  = context.debug.io.submit_time[i];
         auto wait_ns    = context.debug.io.wait_time[i];
         auto total_ns   = submit_ns.count() + wait_ns.count();
@@ -5371,6 +5400,8 @@ inline std::string DumpDebug(const sys::File& file, const SharedContext& context
         auto average    = ToString(std::chrono::nanoseconds(average_ns), 9);
 
         population[i] = std::chrono::nanoseconds{ total_ns };
+
+        num_bytes_read += context.debug.io.num_bytes_read[i];
 
         text.append(thread);
         text.append(": blk").append(requests);
@@ -5385,7 +5416,7 @@ inline std::string DumpDebug(const sys::File& file, const SharedContext& context
     text.append(ComputeDebugStats(population));
     text.push_back('\n');
 
-    for (size_t i = 0; i != context.debug.io.n_requests.size(); ++i) {
+    for (size_t i = 0; i != context.debug.io.num_requests.size(); ++i) {
         auto parse_ns      = context.debug.parse.time[i];
         auto io_ns         = context.debug.io.submit_time[i] + context.debug.io.wait_time[i];
         auto io_percentage = static_cast<int>(0.5f + 100.0f * io_ns.count() / parse_ns.count());
@@ -5407,7 +5438,7 @@ inline std::string DumpDebug(const sys::File& file, const SharedContext& context
     auto total            = parse_total + merge_total;
     auto parse_percentage = static_cast<int>(0.5f + 100.0f * parse_total.count() / total.count());
     auto merge_percentage = 100 - parse_percentage;
-    auto bytes_per_second = file.size() / (parse_total.count() / 1000'000'000.0);
+    auto bytes_per_second = num_bytes_read / (parse_total.count() / 1000'000'000.0);
 
     text.append("Parse Time: ");
     text.append(ToString(parse_total, 10));
@@ -6132,7 +6163,7 @@ inline auto ParseMaterialLibrary(SharedContext* context)
     return ParseMaterials(std::string_view(filedata.data(), static_cast<size_t>(filesize)));
 }
 
-inline void DispatchMergeTasks(const std::vector<MergeTask>& tasks, std::shared_ptr<SharedContext> context)
+inline void DispatchMergeTasks(const MergeTasks& tasks, std::shared_ptr<SharedContext> context)
 {
     while (true) {
         auto fetched_index = std::atomic_fetch_add(&context->merging.task_index, size_t(1));
@@ -6141,9 +6172,10 @@ inline void DispatchMergeTasks(const std::vector<MergeTask>& tasks, std::shared_
             break;
         }
 
-        const auto& task = tasks[fetched_index];
+        const auto& merge_task = tasks[fetched_index];
 
-        if (auto rc = std::visit([](const auto& task) { return task.Execute(); }, task); rc != rapidobj_errc::Success) {
+        if (auto rc = std::visit([](const auto& task) { return task.Execute(); }, merge_task);
+            rc != rapidobj_errc::Success) {
             std::lock_guard lock(context->merging.mutex);
             if (context->merging.error == rapidobj_errc::Success) {
                 context->merging.error = rc;
@@ -7017,7 +7049,8 @@ inline void ProcessBlocks(
 
     auto parse_time = t2 - t1;
 
-    context->debug.io.n_requests[thread_index]  = reader->NumRequests();
+    context->debug.io.num_requests[thread_index]  = reader->NumRequests();
+    context->debug.io.num_bytes_read[thread_index] = reader->BytesRead();
     context->debug.io.submit_time[thread_index] = reader->SubmitTime();
     context->debug.io.wait_time[thread_index]   = reader->WaitTime();
     context->debug.parse.time[thread_index]     = parse_time;
@@ -7030,7 +7063,8 @@ inline void ParseFileSequential(sys::File* file, std::vector<Chunk>* chunks, std
 
     chunks->resize(1);
 
-    context->debug.io.n_requests.resize(1);
+    context->debug.io.num_requests.resize(1);
+    context->debug.io.num_bytes_read.resize(1);
     context->debug.io.submit_time.resize(1);
     context->debug.io.wait_time.resize(1);
     context->debug.parse.time.resize(1);
@@ -7078,7 +7112,8 @@ inline void ParseFileParallel(sys::File* file, std::vector<Chunk>* chunks, std::
     context->thread.concurrency   = num_threads;
     context->parsing.thread_count = num_tasks;
 
-    context->debug.io.n_requests.resize(num_threads);
+    context->debug.io.num_requests.resize(num_threads);
+    context->debug.io.num_bytes_read.resize(num_threads);
     context->debug.io.submit_time.resize(num_threads);
     context->debug.io.wait_time.resize(num_threads);
     context->debug.parse.time.resize(num_threads);
@@ -7122,16 +7157,16 @@ inline Result ParseFile(const std::filesystem::path& filepath, const MaterialLib
 
     context->material.basepath = filepath.parent_path();
 
-    if (/*auto* null =*/ std::get_if<std::nullptr_t>(material_library_value)) {
+    if (std::get_if<std::nullptr_t>(material_library_value) != nullptr) {
         context->material.library = nullptr;
-    } else if (/*auto* none =*/ std::get_if<std::monostate>(material_library_value)) {
+    } else if (std::get_if<std::monostate>(material_library_value) != nullptr) {
         context->material.library = &default_material_library;
     } else if (auto* paths = std::get_if<std::vector<std::filesystem::path>>(material_library_value)) {
         if (paths->empty()) {
             return Result{ Attributes{}, Shapes{}, Materials{}, Error{ rapidobj_errc::InvalidArgumentsError } };
         }
         context->material.library = &material_library;
-    } else if (/*auto* string =*/ std::get_if<std::string_view>(material_library_value)) {
+    } else if (std::get_if<std::string_view>(material_library_value) != nullptr) {
         context->material.library = &material_library;
     } else {
         return Result{ Attributes{}, Shapes{}, Materials{}, Error{ rapidobj_errc::InternalError } };
@@ -7169,7 +7204,7 @@ inline Result ParseFile(const std::filesystem::path& filepath, const MaterialLib
 
     context->debug.merge.total_time = t2 - t1;
 
-    // std::cout << DumpDebug(file, *context);
+    // std::cout << DumpDebug(*context);
 
     auto memory = size_t{ 0 };
 
@@ -7197,9 +7232,9 @@ inline Result ParseStream(std::istream& is, const MaterialLibrary& material_libr
     auto material_library_value   = &material_library.Value();
     auto default_material_library = MaterialLibrary::SearchPaths({}, Load::Optional);
 
-    if (/*auto* null =*/ std::get_if<std::nullptr_t>(material_library_value)) {
+    if (std::get_if<std::nullptr_t>(material_library_value) != nullptr) {
         context->material.library = nullptr;
-    } else if (/*auto* none =*/ std::get_if<std::monostate>(material_library_value)) {
+    } else if (std::get_if<std::monostate>(material_library_value) != nullptr) {
         if (material_library.Policy()) {
             return Result{ Attributes{}, Shapes{}, Materials{}, Error{ rapidobj_errc::InvalidArgumentsError } };
         }
@@ -7212,7 +7247,7 @@ inline Result ParseStream(std::istream& is, const MaterialLibrary& material_libr
             return Result{ Attributes{}, Shapes{}, Materials{}, Error{ rapidobj_errc::MaterialRelativePathError } };
         }
         context->material.library = &material_library;
-    } else if (/*auto* string =*/ std::get_if<std::string_view>(material_library_value)) {
+    } else if (std::get_if<std::string_view>(material_library_value) != nullptr) {
         context->material.library = &material_library;
     } else {
         return Result{ Attributes{}, Shapes{}, Materials{}, Error{ rapidobj_errc::InternalError } };
@@ -7221,7 +7256,8 @@ inline Result ParseStream(std::istream& is, const MaterialLibrary& material_libr
     context->thread.concurrency   = 1;
     context->parsing.thread_count = 1;
 
-    context->debug.io.n_requests.resize(1);
+    context->debug.io.num_requests.resize(1);
+    context->debug.io.num_bytes_read.resize(1);
     context->debug.io.submit_time.resize(1);
     context->debug.io.wait_time.resize(1);
     context->debug.parse.time.resize(1);
@@ -7246,7 +7282,7 @@ inline Result ParseStream(std::istream& is, const MaterialLibrary& material_libr
 
     context->debug.merge.total_time = t2 - t1;
 
-    // std::cout << DumpDebug(file, *context);
+    // std::cout << DumpDebug(*context);
 
     // Free memory in a different thread
     if (SizeInBytes(chunks.front()) > kMemoryRecyclingSize) {
@@ -7259,15 +7295,15 @@ inline Result ParseStream(std::istream& is, const MaterialLibrary& material_libr
 
 struct TriangulateTask final {
     TriangulateTask(
-        const Mesh* src,
-        Mesh*       dst,
-        size_t      cost,
-        size_t      isrc,
-        size_t      idst,
-        size_t      fsrc,
-        size_t      fdst,
-        size_t      size) noexcept
-        : src(src), dst(dst), cost(cost), isrc(isrc), idst(idst), fsrc(fsrc), fdst(fdst), size(size)
+        const Mesh* src_,
+        Mesh*       dst_,
+        size_t      cost_,
+        size_t      isrc_,
+        size_t      idst_,
+        size_t      fsrc_,
+        size_t      fdst_,
+        size_t      size_) noexcept
+        : src(src_), dst(dst_), cost(cost_), isrc(isrc_), idst(idst_), fsrc(fsrc_), fdst(fdst_), size(size_)
     {}
 
     const Mesh* src{};

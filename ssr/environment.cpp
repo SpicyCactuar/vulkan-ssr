@@ -27,8 +27,8 @@ namespace environment {
 
         const auto staging = vkutils::create_buffer(allocator, cubeSizeInBytes, VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
                                                     VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT);
-        void* sptr = nullptr;
-        if (const auto res = vmaMapMemory(allocator.allocator, staging.allocation, &sptr);
+        uint8_t* sptr = nullptr;
+        if (const auto res = vmaMapMemory(allocator.allocator, staging.allocation, reinterpret_cast<void**>(&sptr));
             VK_SUCCESS != res) {
             throw vkutils::Error("Mapping memory for writing\n"
                                  "vmaMapMemory() returned %s", vkutils::to_string(res).c_str()
@@ -49,7 +49,7 @@ namespace environment {
                        faceHeight = faceTextures.begin()->height;
         const auto mipLevels = vkutils::compute_mip_level_count(faceWidth, faceHeight);
         auto cubeImage = vkutils::create_image(allocator, format, VK_IMAGE_TYPE_2D,
-                                               faceWidth, faceHeight, mipLevels, faceTextures.size(),
+                                               faceWidth, faceHeight, mipLevels, static_cast<std::uint32_t>(faceTextures.size()),
                                                VK_IMAGE_USAGE_SAMPLED_BIT |
                                                VK_IMAGE_USAGE_TRANSFER_SRC_BIT |
                                                VK_IMAGE_USAGE_TRANSFER_DST_BIT,
@@ -85,7 +85,7 @@ namespace environment {
                                VkImageSubresourceRange{
                                    VK_IMAGE_ASPECT_COLOR_BIT,
                                    0, mipLevels,
-                                   0, faceTextures.size()
+                                   0, static_cast<std::uint32_t>(faceTextures.size())
                                }
         );
 
@@ -122,7 +122,7 @@ namespace environment {
                                VkImageSubresourceRange{
                                    VK_IMAGE_ASPECT_COLOR_BIT,
                                    0, 1,
-                                   0, faceTextures.size()
+                                   0, static_cast<std::uint32_t>(faceTextures.size())
                                }
         );
 
@@ -200,7 +200,7 @@ namespace environment {
                                VkImageSubresourceRange{
                                    VK_IMAGE_ASPECT_COLOR_BIT,
                                    0, mipLevels,
-                                   0, faceTextures.size()
+                                   0, static_cast<std::uint32_t>(faceTextures.size())
                                }
         );
 

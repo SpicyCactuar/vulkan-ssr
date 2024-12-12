@@ -58,7 +58,7 @@ void ensure_compressed_obj(char const* rawPath) {
     const size_t actualCompressedSize = ZSTD_compress(compressedData.data(), compressedSize, buffer.data(),
                                                       buffer.size(), ZSTD_CLEVEL_DEFAULT);
     if (ZSTD_isError(actualCompressedSize)) {
-        throw vkutils::Error("Compression failed: '%s'", std::string(ZSTD_getErrorName(actualCompressedSize)));
+        throw vkutils::Error("Compression failed: '%s'", std::string(ZSTD_getErrorName(actualCompressedSize)).c_str());
     }
 
     // Resize compressed buffer to actual compressed size

@@ -148,7 +148,7 @@ namespace screenshot {
         if (!stbi_write_png(screenshotPath.string().c_str(), frameWidth, frameHeight, 4,
                             buffer.data(), frameWidth * PIXEL_SIZE_IN_BYTES)) {
             throw vkutils::Error("Unable to write screenshot image: %s\n"
-                                 "stbi_write_png() returned error", screenshotPath);
+                                 "stbi_write_png() returned error", screenshotPath.string().c_str());
         }
 
         std::printf("Output image to: %s\n", screenshotPath.string().c_str());

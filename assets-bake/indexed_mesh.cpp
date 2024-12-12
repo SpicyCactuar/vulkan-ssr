@@ -1,6 +1,6 @@
 #include "indexed_mesh.hpp"
 
-#include <numeric>
+#include <algorithm>
 #include <unordered_map>
 
 #include <cstddef>
@@ -188,9 +188,9 @@ namespace {
 
     DiscretizedPosition Discretizer::discretize(const glm::vec3& position) const {
         return {
-            .x = static_cast<std::uint32_t>((position[0] - min[0]) * scale),
-            .y = static_cast<std::uint32_t>((position[1] - min[1]) * scale),
-            .z = static_cast<std::uint32_t>((position[2] - min[2]) * scale)
+            .x = static_cast<std::int32_t>((position[0] - min[0]) * scale),
+            .y = static_cast<std::int32_t>((position[1] - min[1]) * scale),
+            .z = static_cast<std::int32_t>((position[2] - min[2]) * scale)
         };
     }
 }

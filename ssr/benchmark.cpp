@@ -19,7 +19,7 @@ namespace benchmark {
 
         if (!benchmarksFile.good()) {
             throw vkutils::Error("Unable to create benchmarks file\n"
-                                 "File path: %s", benchmarksPath.string());
+                                 "File path: %s", benchmarksPath.string().c_str());
         }
 
         return benchmarksFile;

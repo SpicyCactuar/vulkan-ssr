@@ -28,7 +28,6 @@
 - [Next Steps](#next-steps)
 - [OS Support](#os-support)
 - [Third Party Tools and Resources](#third-party-tools-and-resources)
-- [License](#license)
 
 ## About
 
@@ -189,7 +188,7 @@ Result ParseFile(
 
 <details>
 <summary><i>Show examples</i></summary>
-  
+
 ```c++
 rapidobj::Result result = rapidobj::ParseFile("/home/user/teapot/teapot.obj");
 ```
@@ -219,7 +218,7 @@ Result ParseStream(
 
 <details>
 <summary><i>Show examples</i></summary>
-  
+
 ```c++
 std::ifstream stream("/home/user/teapot/teapot.obj");
 rapidobj::Result result = rapidobj::ParseStream(stream);
@@ -238,7 +237,8 @@ struct MaterialLibrary final {
     static MaterialLibrary Default();
     static MaterialLibrary Default(Load policy);
     static MaterialLibrary SearchPath(std::filesystem::path path, Load policy = Load::Mandatory);
-    static MaterialLibrary SearchPaths(std::vector<std::filesystem::path> paths, Load policy = Load::Mandatory);
+    static MaterialLibrary SearchPaths(std::vector<std::filesystem::path> paths,
+                                       Load policy = Load::Mandatory);
     static MaterialLibrary String(std::string_view text);
     static MaterialLibrary Ignore();
 };
@@ -326,7 +326,8 @@ A relative search path's current directory is .obj file's parent folder. A relat
 //         ├── materials
 //         │   └── teapot.mtl
 //         └── teapot.obj
-Result result = ParseFile("/home/user/teapot/teapot.obj", MaterialLibrary::SearchPath("materials"));
+Result result = ParseFile("/home/user/teapot/teapot.obj",
+                          MaterialLibrary::SearchPath("materials"));
 ```
 
 ```c++
@@ -338,7 +339,8 @@ Result result = ParseFile("/home/user/teapot/teapot.obj", MaterialLibrary::Searc
 //     │   └── teapot.mtl
 //     └── teapot
 //         └── teapot.obj
-Result result = ParseFile("/home/user/teapot/teapot.obj", MaterialLibrary::SearchPath("/home/user/materials"));
+Result result = ParseFile("/home/user/teapot/teapot.obj",
+                          MaterialLibrary::SearchPath("/home/user/materials"));
 ```
 
 </details>
@@ -353,7 +355,8 @@ A relative search path's current directory is .obj file's parent folder. A relat
 <summary><i>Show examples</i></summary>
 
 ```c++
-// Look for .mtl file in folder /home/user/teapot/materials, then /home/user/materials, then /home/user/teapot.
+// Look for .mtl file in folder /home/user/teapot/materials,
+// then /home/user/materials, then /home/user/teapot.
 //
 // home
 // └── user
@@ -399,7 +402,7 @@ Constructor used to instruct `Parse` functions to completely ignore any material
 
 <details>
 <summary><i>Show examples</i></summary>
-  
+
 ```c++
 // Instruct ParseFile to ignore teapot.mtl file.
 //
@@ -429,7 +432,7 @@ enum class Load { Mandatory, Optional };
 
 <details>
 <summary><i>Show examples</i></summary>
-  
+
 ```c++
 // Look for .mtl file in subfolder 'materials'.
 // If the file cannot be found, ParseFile function will fail with an error.
@@ -476,7 +479,7 @@ bool Triangulate(Result& result)
 
 <details>
 <summary><i>Show examples</i></summary>
-  
+
 ```c++
 Result result  = ParseFile("/home/user/teapot/teapot.obj");
 bool   success = Triangulate(result);
@@ -633,7 +636,7 @@ Material IDs index into the the Materials array.
 
 #### `Mesh::smoothing_group_ids`
 
- Smoothing group IDs can be used to calculate vertex normals.
+Smoothing group IDs can be used to calculate vertex normals.
 
 <table>
     <tr>
@@ -850,11 +853,3 @@ This is a list of third party tools and resources used by this project:
 - [fast_float](https://github.com/fastfloat/fast_float) for string to float parsing
 - [tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) for .obj file parsing
 - [xxHash](https://github.com/Cyan4973/xxHash) for hashing
-
-## License
-
-The rapidobj single-header library is licensed under the MIT License.
-
-The rapidobj single-header library contains a copy of [fast_float](https://github.com/fastfloat/fast_float) number parsing library from Daniel Lamire which is licensed under the MIT License as well as under the Apache 2.0 License.
-
-The rapidobj single-header library contains a copy of [earcut.hpp](https://github.com/mapbox/earcut.hpp) polygon triangulation library from Mapbox which is licensed under the ISC License.
