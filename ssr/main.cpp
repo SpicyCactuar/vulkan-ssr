@@ -135,11 +135,9 @@ int main(int argc, char* argv[]) try {
 
     // Initialise semaphores
     const vkutils::Semaphore offscreenFinished = vkutils::create_semaphore(vulkanWindow);
-    const vkutils::Semaphore swapchainImageAvailable = vkutils::create_semaphore(vulkanWindow);
     const vkutils::Semaphore renderFinished = vkutils::create_semaphore(vulkanWindow);
-    const std::array frameWaitSemaphores{
-        offscreenFinished.handle, swapchainImageAvailable.handle
-    };
+    const std::vector<vkutils::Semaphore> swapchainImagesAvailable =
+            vkutils::create_semaphores(vulkanWindow, framebuffers.size());
 
     // Create Samplers
     const vkutils::Sampler anisotropySampler = vkutils::create_anisotropy_sampler(vulkanWindow);
@@ -349,6 +347,7 @@ int main(int argc, char* argv[]) try {
         offscreen::submit_commands(vulkanWindow, offscreenCommandBuffer, offscreenFinished, offscreenFence);
 
         // Acquire next swap chain image, without waiting for offscreen commands to finish
+        const vkutils::Semaphore& swapchainImageAvailable = swapchainImagesAvailable[frameInFlightIndex];
         const std::uint32_t imageIndex = swapchain::acquire_swapchain_image(vulkanWindow, swapchainImageAvailable,
                                                                             recreateSwapchain);
 
@@ -361,13 +360,13 @@ int main(int argc, char* argv[]) try {
 
         // Retrieve per-frame pipeline resources
         assert(imageIndex < frameFences.size());
-        const vkutils::Fence& frameFence = frameFences[imageIndex];
+        const vkutils::Fence& frameFence = frameFences[frameInFlightIndex];
 
         assert(imageIndex < frameCommandBuffers.size());
         assert(imageIndex < framebuffers.size());
 
-        const VkCommandBuffer frameCommandBuffer = frameCommandBuffers[imageIndex];
-        const vkutils::Framebuffer& fullscreenFramebuffer = framebuffers[imageIndex];
+        const VkCommandBuffer frameCommandBuffer = frameCommandBuffers[frameInFlightIndex];
+        const vkutils::Framebuffer& fullscreenFramebuffer = framebuffers[frameInFlightIndex];
 
         // Begin Fullscreen command buffer
         fullscreen::prepare_frame_command_buffer(vulkanWindow, frameFence, frameCommandBuffer);
@@ -403,14 +402,15 @@ int main(int argc, char* argv[]) try {
 
         // Submit fullscreen commands, waits for both offscreenFinished and swapchainImageAvailable
         fullscreen::submit_frame_command_buffer(vulkanWindow, frameCommandBuffer,
-                                                frameWaitSemaphores, renderFinished.handle,
+                                                {offscreenFinished.handle, swapchainImageAvailable.handle},
+                                                renderFinished.handle,
                                                 frameFence);
 
 #ifdef ENABLE_DIAGNOSTICS
         // Handle screenshot
         if (state.takeFrameScreenshot) {
-            screenshot::take_screenshot(vulkanWindow, commandPool, vulkanWindow.swapImages[imageIndex], allocator,
-                                        screenshotReady, path::output_file_path(sceneName, sceneTag, "png"));
+            screenshot::take_screenshot(vulkanWindow, commandPool, vulkanWindow.swapImages[imageIndex],
+                                        allocator, screenshotReady, path::output_file_path(sceneName, sceneTag, "png"));
         }
 #endif
 

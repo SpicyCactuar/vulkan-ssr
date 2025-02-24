@@ -1,7 +1,6 @@
 #include "vkutil.hpp"
 
 #include <array>
-#include <vector>
 
 #include <cstdio>
 #include <cassert>
@@ -131,6 +130,17 @@ namespace vkutils {
         }
 
         return Semaphore(context.device, semaphore);
+    }
+
+    std::vector<Semaphore> create_semaphores(const VulkanContext& context, const std::size_t amount) {
+        std::vector<Semaphore> semaphores;
+        semaphores.reserve(amount);
+
+        for (std::size_t i = 0; i < amount; ++i) {
+            semaphores.emplace_back(create_semaphore(context));
+        }
+
+        return semaphores;
     }
 
     Event create_event(const VulkanContext& context, const VkEventCreateFlags flags) {

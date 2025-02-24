@@ -17,6 +17,8 @@ namespace vkutils {
 
     Semaphore create_semaphore(const VulkanContext&);
 
+    std::vector<Semaphore> create_semaphores(const VulkanContext&, std::size_t);
+
     Event create_event(const VulkanContext&, VkEventCreateFlags = 0);
 
     void buffer_barrier(
