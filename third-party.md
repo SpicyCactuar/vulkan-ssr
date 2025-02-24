@@ -35,7 +35,7 @@ correctly for this project.
 - License: Apache 2.0
 
 This is a copy of the necessary Vulkan header files, extracted from the Vulkan
-SDK (version 1.3.236). Only the LICENSE.txt, README.txt and a reduced amount of
+SDK (version 1.4.309). Only the LICENSE.txt, README.txt and a reduced amount of
 header files are included.
 
 ## STB libraries

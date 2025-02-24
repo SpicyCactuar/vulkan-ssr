@@ -1,5 +1,7 @@
 #include "allocator.hpp"
 
+#include <iostream>
+#include <ostream>
 #include <utility>
 
 #include "error.hpp"
@@ -29,20 +31,25 @@ namespace vkutils {
 }
 
 namespace vkutils {
-    Allocator create_allocator(const VulkanContext& aContext) {
+    Allocator create_allocator(const VulkanContext& context) {
         VkPhysicalDeviceProperties props{};
-        vkGetPhysicalDeviceProperties(aContext.physicalDevice, &props);
+        vkGetPhysicalDeviceProperties(context.physicalDevice, &props);
 
         VmaVulkanFunctions functions{
             .vkGetInstanceProcAddr = vkGetInstanceProcAddr,
             .vkGetDeviceProcAddr = vkGetDeviceProcAddr
         };
 
+        std::cout << "Vulkan Version: "
+              << VK_API_VERSION_MAJOR(props.apiVersion) << "."
+              << VK_API_VERSION_MINOR(props.apiVersion) << "."
+              << VK_API_VERSION_PATCH(props.apiVersion) << "\n\n";
+
         const VmaAllocatorCreateInfo allocatorCreateInfo{
-            .physicalDevice = aContext.physicalDevice,
-            .device = aContext.device,
+            .physicalDevice = context.physicalDevice,
+            .device = context.device,
             .pVulkanFunctions = &functions,
-            .instance = aContext.instance,
+            .instance = context.instance,
             .vulkanApiVersion = props.apiVersion
         };
 

@@ -101,16 +101,16 @@ The `tag` parameter is used as a suffix to identify output files.
 
 * **C++**: `>= C++23`
 * **Premake**: `5.0.0` (Bundled)
-* **Vulkan**: `>= 1.2.0` (Bundled headers)
-* **Volk**: `1.3.295` (Bundled)
-* **Vulkan Memory Allocator (VMA)**: `3.1.0` (Bundled)
+* **Vulkan**: `>= 1.3.0` (Bundled headers)
+* **Volk**: `1.4.304` (Bundled)
+* **Vulkan Memory Allocator (VMA)**: `v3.2.1` (Bundled)
 * **GLSL**: `460`
 * **GLM**: `0.9.9` (Bundled)
 * **GLFW**: `3.4` (Bundled)
 * **ImGui**: `1.90.8` (Bundled)
 * **stb_image**: `v2.29` (Bundled)
 * **stb_image_write**: `v1.16` (Bundled)
-* **Native File Dialog Extended**: **v1.2.0** (Bundled)
+* **Native File Dialog Extended**: `v1.2.0` (Bundled)
 
 A few additional supporting libraries are leveraged. Files were selectively bundled as needed.
 
