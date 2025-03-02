@@ -88,9 +88,13 @@ int main(int argc, char* argv[]) try {
 
     // Initialise Shadow Map Pipeline
     const vkutils::RenderPass shadowPass = shadow::create_render_pass(vulkanWindow);
-    const vkutils::PipelineLayout shadowPipelineLayout = shadow::create_pipeline_layout(vulkanWindow, sceneLayout);
-    vkutils::Pipeline shadowPipeline =
-            shadow::create_pipeline(vulkanWindow, shadowPass.handle, shadowPipelineLayout.handle);
+    const vkutils::PipelineLayout shadowOpaqueLayout = shadow::create_opaque_pipeline_layout(vulkanWindow, sceneLayout);
+    vkutils::Pipeline shadowOpaquePipeline = shadow::create_opaque_pipeline(
+        vulkanWindow, shadowPass.handle, shadowOpaqueLayout.handle);
+    const vkutils::PipelineLayout shadowAlphaLayout = shadow::create_alpha_pipeline_layout(
+        vulkanWindow, sceneLayout, materialLayout);
+    vkutils::Pipeline shadowAlphaPipeline = shadow::create_alpha_pipeline(
+        vulkanWindow, shadowPass.handle, shadowAlphaLayout.handle);
     auto [shadowImage, shadowView] = shadow::create_shadow_buffer(vulkanWindow, allocator);
     const vkutils::Framebuffer shadowFramebuffer = shadow::create_shadow_framebuffer(
         vulkanWindow, shadowPass.handle, shadowView.handle);
@@ -100,8 +104,10 @@ int main(int argc, char* argv[]) try {
     const vkutils::DescriptorSetLayout shadeLayout = shade::create_descriptor_layout(vulkanWindow);
     const vkutils::PipelineLayout offscreenLayout = offscreen::create_pipeline_layout(
         vulkanWindow, sceneLayout, shadeLayout, materialLayout);
-    vkutils::Pipeline offscreenPipeline = offscreen::create_pipeline(vulkanWindow, offscreenPass.handle,
-                                                                     offscreenLayout.handle);
+    vkutils::Pipeline offscreenOpaquePipeline = offscreen::create_opaque_pipeline(
+        vulkanWindow, offscreenPass.handle, offscreenLayout.handle);
+    vkutils::Pipeline offscreenAlphaPipeline = offscreen::create_alpha_pipeline(
+        vulkanWindow, offscreenPass.handle, offscreenLayout.handle);
     vkutils::Framebuffer offscreenFramebuffer = offscreen::create_offscreen_framebuffer(
         vulkanWindow, offscreenPass.handle, gBuffer);
 
@@ -182,8 +188,8 @@ int main(int argc, char* argv[]) try {
     }
 
     // Extract meshes
-    const auto meshes = mesh::extract_meshes(vulkanWindow, allocator, sceneModel);
-
+    const auto [opaqueMeshes, alphaMeshes] =
+            mesh::extract_meshes(vulkanWindow, allocator, sceneModel, materialStore.materials);
 
     // Load environment
     const auto cubeMap = environment::load_cube_map(vulkanWindow, allocator, commandPool);
@@ -231,8 +237,10 @@ int main(int argc, char* argv[]) try {
             if (changes.changedSize) {
                 // Recreate both offscreen & fullscreen passes
                 gBuffer = gbuffer::GBuffer(vulkanWindow, allocator);
-                offscreenPipeline = offscreen::create_pipeline(vulkanWindow, offscreenPass.handle,
-                                                               offscreenLayout.handle);
+                offscreenOpaquePipeline = offscreen::create_opaque_pipeline(vulkanWindow, offscreenPass.handle,
+                                                                            offscreenLayout.handle);
+                offscreenAlphaPipeline = offscreen::create_alpha_pipeline(vulkanWindow, offscreenPass.handle,
+                                                                          offscreenLayout.handle);
                 offscreenFramebuffer = offscreen::create_offscreen_framebuffer(
                     vulkanWindow, offscreenPass.handle, gBuffer);
 
@@ -297,12 +305,16 @@ int main(int argc, char* argv[]) try {
             offscreenCommandBuffer,
             shadowPass.handle,
             shadowFramebuffer.handle,
-            shadowPipelineLayout.handle,
-            shadowPipeline.handle,
+            shadowOpaqueLayout.handle,
+            shadowOpaquePipeline.handle,
+            shadowAlphaLayout.handle,
+            shadowAlphaPipeline.handle,
             sceneUBO.buffer,
             sceneUniform,
             sceneDescriptorSet,
-            meshes
+            opaqueMeshes,
+            alphaMeshes,
+            materialDescriptorSets
         );
 
         // Record shadow end timestamp command
@@ -322,7 +334,8 @@ int main(int argc, char* argv[]) try {
             offscreenPass.handle,
             offscreenFramebuffer.handle,
             offscreenLayout.handle,
-            offscreenPipeline.handle,
+            offscreenOpaquePipeline.handle,
+            offscreenAlphaPipeline.handle,
             vulkanWindow.swapchainExtent,
             sceneUBO.buffer,
             sceneUniform,
@@ -330,9 +343,8 @@ int main(int argc, char* argv[]) try {
             shadeUbo.buffer,
             shadeUniform,
             shadeDescriptorSet,
-            meshes,
-            materialStore.materials,
-            materialDescriptorSets
+            opaqueMeshes,
+            alphaMeshes, materialStore.materials, materialDescriptorSets
         );
 
         // Record GBuffer end timestamp command

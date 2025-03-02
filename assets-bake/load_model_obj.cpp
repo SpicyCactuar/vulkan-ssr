@@ -130,6 +130,9 @@ InputModel load_compressed_obj(char const* rawPath) {
         if (!material.normal_texname.empty()) {
             materialInfo.normalMapTexturePath = prefix + material.normal_texname;
         }
+        if (!material.alpha_texname.empty()) {
+            materialInfo.alphaMaskTexturePath = prefix + material.alpha_texname;
+        }
 
         loadedModel.materials.emplace_back(std::move(materialInfo));
     }

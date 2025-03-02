@@ -9,7 +9,7 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
-
+// TODO: Include alphaMask docs
 /*
  * Baked file format:
  *
@@ -55,7 +55,7 @@
  * information.
  */
 namespace baked {
-    constexpr std::uint32_t NO_ID = 0xFFFFFFFF;
+    constexpr std::uint32_t NO_ID = ~static_cast<std::uint32_t>(0);
 
     struct BakedTextureInfo {
         std::string path;
@@ -73,6 +73,11 @@ namespace baked {
         std::uint32_t roughnessTextureId;
         std::uint32_t metalnessTextureId;
         std::uint32_t normalMapTextureId;
+        std::uint32_t alphaMaskTextureId = NO_ID;
+
+        bool has_alpha_mask() const {
+            return alphaMaskTextureId != NO_ID;
+        }
     };
 
     struct BakedMeshData {

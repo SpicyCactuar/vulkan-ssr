@@ -106,15 +106,17 @@ namespace baked {
                 .baseColourTextureId = readUint32(input),
                 .roughnessTextureId = readUint32(input),
                 .metalnessTextureId = readUint32(input),
-                .normalMapTextureId = readUint32(input)
+                .normalMapTextureId = readUint32(input),
+                .alphaMaskTextureId = readUint32(input)
             };
 
             assert(info.baseColourTextureId < bakedModel.textures.size());
             assert(info.roughnessTextureId < bakedModel.textures.size());
             assert(info.metalnessTextureId < bakedModel.textures.size());
             assert(info.normalMapTextureId < bakedModel.textures.size());
+            assert(info.alphaMaskTextureId < bakedModel.textures.size() || info.alphaMaskTextureId == NO_ID);
 
-            bakedModel.materials.emplace_back(std::move(info));
+            bakedModel.materials.emplace_back(info);
         }
 
         // Read mesh data
@@ -146,11 +148,9 @@ namespace baked {
             bakedModel.meshes.emplace_back(std::move(data));
         }
 
-        // Check
+        // Check trailing bytes
         char byte;
-        const auto check = std::fread(&byte, 1, 1, input);
-
-        if (0 != check) {
+        if (const auto check = std::fread(&byte, 1, 1, input); 0 != check) {
             std::fprintf(stderr, "Note: '%s' contains trailing bytes\n", inputName);
         }
 

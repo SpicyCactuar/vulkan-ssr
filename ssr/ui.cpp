@@ -224,13 +224,12 @@ namespace ui {
         ImGui::Spacing();
         const bool loadPlaybackFile = ImGui::Button("Load Playback file");
         ImGui::SameLine();
-        ImGui::Text(playbackPath.has_value()
-                        ? playbackPath.value().filename().string().c_str()
-                        : "No Playback file selected");
+        ImGui::Text("%s", playbackPath.has_value()
+                              ? playbackPath.value().filename().string().c_str()
+                              : "No Playback file selected");
         if (loadPlaybackFile) {
             if (playbackPath = select_playback_file(); playbackPath.has_value()) {
-                state.playback = new playback::Playback(
-                    std::move(playback::parse_playback(playbackPath.value())));
+                state.playback = new playback::Playback(playback::parse_playback(playbackPath.value()));
                 state.totalBenchmarkFrames = state.playback->duration_in_frames();
                 state.currentBenchmarkFrame = state.totalBenchmarkFrames;
             }

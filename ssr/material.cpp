@@ -28,6 +28,7 @@ namespace material {
                                     const vkutils::VulkanContext& context,
                                     const vkutils::Allocator& allocator) {
         std::vector<vkutils::Image> textures;
+        // Need to explicitly resize here to allow for random-access in load_material_texture
         textures.resize(model.textures.size());
         std::vector<Material> materials;
         materials.reserve(model.materials.size());
@@ -43,11 +44,19 @@ namespace material {
                                   context, allocator, loadCommandPool, textures);
             load_material_texture(model, modelMaterial.normalMapTextureId, Material::LINEAR_FORMAT,
                                   context, allocator, loadCommandPool, textures);
+            if (modelMaterial.has_alpha_mask()) {
+                // Load with COLOUR_FORMAT in case texture matches base color one
+                load_material_texture(model, modelMaterial.alphaMaskTextureId, Material::COLOUR_FORMAT,
+                                      context, allocator, loadCommandPool, textures);
+            }
 
             assert(textures[modelMaterial.baseColourTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.roughnessTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.metalnessTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.normalMapTextureId].image != VK_NULL_HANDLE);
+            if (modelMaterial.has_alpha_mask()) {
+                assert(textures[modelMaterial.alphaMaskTextureId].image != VK_NULL_HANDLE);
+            }
 
             // Marked as [[maybe_unused]] to avoid generating warnings in release mode
             // Variable is only accessed by assert(...) calls, only relevant in debug mode
@@ -69,13 +78,20 @@ namespace material {
                                        VK_IMAGE_ASPECT_COLOR_BIT),
                 vkutils::image_to_view(context, textures[modelMaterial.normalMapTextureId].image,
                                        VK_IMAGE_VIEW_TYPE_2D, Material::LINEAR_FORMAT,
-                                       VK_IMAGE_ASPECT_COLOR_BIT)
+                                       VK_IMAGE_ASPECT_COLOR_BIT),
+                !modelMaterial.has_alpha_mask()
+                    ? std::nullopt
+                    : std::make_optional(vkutils::image_to_view(
+                        context, textures[modelMaterial.alphaMaskTextureId].image,
+                        VK_IMAGE_VIEW_TYPE_2D, Material::COLOUR_FORMAT,
+                        VK_IMAGE_ASPECT_COLOR_BIT))
             );
 
             assert(material.baseColour.handle != VK_NULL_HANDLE);
             assert(material.roughness.handle != VK_NULL_HANDLE);
             assert(material.metalness.handle != VK_NULL_HANDLE);
             assert(material.normalMap.handle != VK_NULL_HANDLE);
+            assert(material.alphaMask.has_value() == modelMaterial.has_alpha_mask());
         }
 
         return MaterialStore{
@@ -113,6 +129,13 @@ namespace material {
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
+            },
+            // Alpha Mask - Only for alpha masked pipelines
+            VkDescriptorSetLayoutBinding{
+                .binding = 4, // layout(set = ..., binding = 4)
+                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+                .descriptorCount = 1,
+                .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
             }
         };
 
@@ -133,69 +156,84 @@ namespace material {
         return vkutils::DescriptorSetLayout(context.device, layout);
     }
 
+    template<size_t N>
+    void update_material_descriptor_set(const vkutils::VulkanContext& context,
+                                        const VkDescriptorSet materialDescriptorSet,
+                                        const std::array<const VkDescriptorImageInfo, N>& textureDescriptors) {
+        std::array<VkWriteDescriptorSet, N> writeDescriptor{};
+
+        for (unsigned int i = 0; i < writeDescriptor.size(); ++i) {
+            writeDescriptor[i].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            writeDescriptor[i].dstSet = materialDescriptorSet;
+            writeDescriptor[i].dstBinding = i;
+            writeDescriptor[i].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            writeDescriptor[i].descriptorCount = 1;
+            writeDescriptor[i].pImageInfo = &textureDescriptors[i];
+        }
+
+        vkUpdateDescriptorSets(context.device, writeDescriptor.size(), writeDescriptor.data(), 0, nullptr);
+    }
+
     void update_descriptor_set(const vkutils::VulkanContext& context,
                                const VkDescriptorSet materialDescriptorSet,
                                const material::Material& material,
                                const vkutils::Sampler& anisotropySampler,
                                const vkutils::Sampler& pointSampler) {
-        const std::array<const VkDescriptorImageInfo, 4> textureDescriptors{
-            VkDescriptorImageInfo{
-                .sampler = anisotropySampler.handle,
-                .imageView = material.baseColour.handle,
-                .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-            },
-            VkDescriptorImageInfo{
-                .sampler = pointSampler.handle,
-                .imageView = material.roughness.handle,
-                .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-            },
-            VkDescriptorImageInfo{
-                .sampler = pointSampler.handle,
-                .imageView = material.metalness.handle,
-                .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-            },
-            VkDescriptorImageInfo{
-                .sampler = anisotropySampler.handle,
-                .imageView = material.normalMap.handle,
-                .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
-            }
-        };
+        if (material.has_alpha_mask()) {
+            const std::array<const VkDescriptorImageInfo, 5> textureDescriptors{
+                VkDescriptorImageInfo{
+                    .sampler = anisotropySampler.handle,
+                    .imageView = material.baseColour.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.roughness.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.metalness.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = anisotropySampler.handle,
+                    .imageView = material.normalMap.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.alphaMask->handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+            };
 
-        const std::array<const VkWriteDescriptorSet, textureDescriptors.size()> writeDescriptor{
-            VkWriteDescriptorSet{
-                .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
-                .dstSet = materialDescriptorSet,
-                .dstBinding = 0,
-                .descriptorCount = 1,
-                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-                .pImageInfo = &textureDescriptors[0]
-            },
-            VkWriteDescriptorSet{
-                .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
-                .dstSet = materialDescriptorSet,
-                .dstBinding = 1,
-                .descriptorCount = 1,
-                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-                .pImageInfo = &textureDescriptors[1]
-            },
-            VkWriteDescriptorSet{
-                .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
-                .dstSet = materialDescriptorSet,
-                .dstBinding = 2,
-                .descriptorCount = 1,
-                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-                .pImageInfo = &textureDescriptors[2]
-            },
-            VkWriteDescriptorSet{
-                .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
-                .dstSet = materialDescriptorSet,
-                .dstBinding = 3,
-                .descriptorCount = 1,
-                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-                .pImageInfo = &textureDescriptors[3]
-            }
-        };
+            update_material_descriptor_set(context, materialDescriptorSet, textureDescriptors);
+        } else {
+            const std::array<const VkDescriptorImageInfo, 4> textureDescriptors{
+                VkDescriptorImageInfo{
+                    .sampler = anisotropySampler.handle,
+                    .imageView = material.baseColour.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.roughness.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.metalness.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = anisotropySampler.handle,
+                    .imageView = material.normalMap.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                }
+            };
 
-        vkUpdateDescriptorSets(context.device, writeDescriptor.size(), writeDescriptor.data(), 0, nullptr);
+            update_material_descriptor_set(context, materialDescriptorSet, textureDescriptors);
+        }
     }
 }

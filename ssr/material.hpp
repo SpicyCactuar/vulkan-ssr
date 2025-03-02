@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "../vkutils/vkimage.hpp"
 #include "../vkutils/vkutil.hpp"
 #include "../vkutils/vulkan_context.hpp"
@@ -32,6 +34,11 @@ namespace material {
         vkutils::ImageView roughness;
         vkutils::ImageView metalness;
         vkutils::ImageView normalMap;
+        std::optional<vkutils::ImageView> alphaMask;
+
+        bool has_alpha_mask() const {
+            return alphaMask.has_value();
+        }
 
         static constexpr VkFormat COLOUR_FORMAT = VK_FORMAT_R8G8B8A8_SRGB;
         static constexpr VkFormat LINEAR_FORMAT = VK_FORMAT_R8G8B8A8_UNORM;

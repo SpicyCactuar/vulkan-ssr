@@ -270,19 +270,27 @@ namespace {
 }
 
 namespace mesh {
-    std::vector<Mesh> extract_meshes(const vkutils::VulkanContext& context,
-                                     const vkutils::Allocator& allocator,
-                                     const baked::BakedModel& model) {
-        std::vector<Mesh> meshes;
-        meshes.reserve(model.meshes.size());
+    std::pair<std::vector<Mesh>, std::vector<Mesh>> extract_meshes(const vkutils::VulkanContext& context,
+                                                                   const vkutils::Allocator& allocator,
+                                                                   const baked::BakedModel& model,
+                                                                   const std::vector<material::Material>& materials) {
+        std::vector<Mesh> opaqueMeshes;
+        std::vector<Mesh> alphaMaskedMeshes;
 
-        // This uses a separate command pool for simplicity
+        // CommandPool created solely to allocate mesh data in GPU
         const vkutils::CommandPool uploadPool = vkutils::create_command_pool(context);
 
         for (const auto& modelMesh : model.meshes) {
-            meshes.emplace_back(allocate(context, modelMesh, allocator, uploadPool));
+            if (materials[modelMesh.materialId].has_alpha_mask()) {
+                alphaMaskedMeshes.emplace_back(allocate(context, modelMesh, allocator, uploadPool));
+            } else {
+                opaqueMeshes.emplace_back(allocate(context, modelMesh, allocator, uploadPool));
+            }
         }
 
-        return meshes;
+        opaqueMeshes.shrink_to_fit();
+        alphaMaskedMeshes.shrink_to_fit();
+
+        return {std::move(opaqueMeshes), std::move(alphaMaskedMeshes)};
     }
 }

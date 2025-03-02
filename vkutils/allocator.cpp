@@ -1,6 +1,5 @@
 #include "allocator.hpp"
 
-#include <iostream>
 #include <ostream>
 #include <utility>
 
@@ -39,11 +38,6 @@ namespace vkutils {
             .vkGetInstanceProcAddr = vkGetInstanceProcAddr,
             .vkGetDeviceProcAddr = vkGetDeviceProcAddr
         };
-
-        std::cout << "Vulkan Version: "
-              << VK_API_VERSION_MAJOR(props.apiVersion) << "."
-              << VK_API_VERSION_MINOR(props.apiVersion) << "."
-              << VK_API_VERSION_PATCH(props.apiVersion) << "\n\n";
 
         const VmaAllocatorCreateInfo allocatorCreateInfo{
             .physicalDevice = context.physicalDevice,

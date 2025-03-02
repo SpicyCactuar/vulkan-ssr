@@ -25,12 +25,20 @@ namespace shadow {
 
     vkutils::RenderPass create_render_pass(const vkutils::VulkanWindow& window);
 
-    vkutils::PipelineLayout create_pipeline_layout(const vkutils::VulkanContext& context,
-                                                   const vkutils::DescriptorSetLayout& sceneLayout);
+    vkutils::PipelineLayout create_opaque_pipeline_layout(const vkutils::VulkanContext& context,
+                                                          const vkutils::DescriptorSetLayout& sceneLayout);
 
-    vkutils::Pipeline create_pipeline(const vkutils::VulkanWindow& window,
-                                      VkRenderPass renderPass,
-                                      VkPipelineLayout pipelineLayout);
+    vkutils::Pipeline create_opaque_pipeline(const vkutils::VulkanWindow& window,
+                                             VkRenderPass renderPass,
+                                             VkPipelineLayout pipelineLayout);
+
+    vkutils::PipelineLayout create_alpha_pipeline_layout(const vkutils::VulkanContext& context,
+                                                         const vkutils::DescriptorSetLayout& sceneLayout,
+                                                         const vkutils::DescriptorSetLayout& materialLayout);
+
+    vkutils::Pipeline create_alpha_pipeline(const vkutils::VulkanWindow& window,
+                                            VkRenderPass renderPass,
+                                            VkPipelineLayout pipelineLayout);
 
     std::pair<vkutils::Image, vkutils::ImageView> create_shadow_buffer(const vkutils::VulkanWindow&,
                                                                        const vkutils::Allocator&);
@@ -42,10 +50,14 @@ namespace shadow {
     void record_commands(VkCommandBuffer commandBuffer,
                          VkRenderPass renderPass,
                          VkFramebuffer framebuffer,
-                         VkPipelineLayout shadowPipelineLayout,
-                         VkPipeline shadowPipeline,
+                         VkPipelineLayout opaqueLayout,
+                         VkPipeline opaquePipeline,
+                         VkPipelineLayout alphaLayout,
+                         VkPipeline alphaPipeline,
                          VkBuffer sceneUBO,
                          const glsl::SceneUniform& sceneUniform,
                          VkDescriptorSet sceneDescriptors,
-                         const std::vector<mesh::Mesh>& meshes);
+                         const std::vector<mesh::Mesh>& opaqueMeshes,
+                         const std::vector<mesh::Mesh>& alphaMeshes,
+                         const std::vector<VkDescriptorSet>& materialDescriptors);
 }

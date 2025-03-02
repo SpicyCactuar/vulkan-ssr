@@ -15,10 +15,13 @@
 using namespace vkutils::literals;
 
 namespace cfg {
-    constexpr const char* shadowMapVertPath = ASSETS_PATH_ "/shaders/shadow_map.vert.spv";
-    constexpr const char* shadowMapFragPath = ASSETS_PATH_ "/shaders/shadow_map.frag.spv";
+    constexpr const char* shadowMapOpaqueVertPath = ASSETS_PATH_ "/shaders/shadow_map_opaque.vert.spv";
+    constexpr const char* shadowMapOpaqueFragPath = ASSETS_PATH_ "/shaders/shadow_map_opaque.frag.spv";
+    constexpr const char* shadowMapAlphaVertPath = ASSETS_PATH_ "/shaders/shadow_map_alpha.vert.spv";
+    constexpr const char* shadowMapAlphaFragPath = ASSETS_PATH_ "/shaders/shadow_map_alpha.frag.spv";
     constexpr const char* offscreenVertPath = ASSETS_PATH_ "/shaders/offscreen.vert.spv";
-    constexpr const char* offscreenFragPath = ASSETS_PATH_ "/shaders/offscreen.frag.spv";
+    constexpr const char* offscreenOpaqueFragPath = ASSETS_PATH_ "/shaders/offscreen_opaque.frag.spv";
+    constexpr const char* offscreenAlphaFragPath = ASSETS_PATH_ "/shaders/offscreen_alpha.frag.spv";
     constexpr const char* fullscreenVertPath = ASSETS_PATH_ "/shaders/fullscreen.vert.spv";
     constexpr const char* fullscreenFragPath = ASSETS_PATH_ "/shaders/fullscreen.frag.spv";
 

@@ -103,9 +103,9 @@ int main() try {
      *   blindly.)
      *
      * - The VisualStudio interacive debugger's heap profiler (the thing that
-     *   shows you tM_FirePit_Inst_Glow_0_Emissive.pnghe memory usage graph) carries a measurable overhead as well.
+     *   shows you tM_FirePit_Inst_Glow_0_Emissive.png memory usage graph) carries a measurable overhead as well.
      *
-     * The binary .sc23elssrmesh should be unchanged between debug and release
+     * The binary .spicymesh should be unchanged between debug and release
      * builds, so you can safely use the release build to create the file once,
      * even while debugging the main program.
      */
@@ -252,6 +252,7 @@ namespace {
             if (material.normalMapTexturePath.empty()) {
                 material.normalMapTexturePath = kTextureFallbackRRGGB05051;
             }
+            // Leave material.alphaMaskTexturePath empty if not present
         }
 
         // This should use the move constructor implicitly
@@ -312,6 +313,7 @@ namespace {
             checked_write(out, sizeof(channels), &channels);
         }
 
+        // TODO: Include alphaMask docs
         // Write material information
         // Format:
         //  - uint32_t : M = number of materials
@@ -329,7 +331,7 @@ namespace {
             checked_write(out, sizeof(float), &material.baseRoughness);
             checked_write(out, sizeof(float), &material.baseMetalness);
 
-            const auto writeTex = [&](const std::string& rawTexturePath) {
+            const auto writeTex = [&textures, &out](const std::string& rawTexturePath) {
                 if (rawTexturePath.empty()) {
                     static constexpr std::uint32_t sentinel = ~static_cast<std::uint32_t>(0);
                     checked_write(out, sizeof(std::uint32_t), &sentinel);
@@ -346,6 +348,7 @@ namespace {
             writeTex(material.roughnessTexturePath);
             writeTex(material.metalnessTexturePath);
             writeTex(material.normalMapTexturePath);
+            writeTex(material.alphaMaskTexturePath);
         }
 
         // Write mesh data
@@ -434,7 +437,7 @@ namespace {
                 .channels = channels
             };
 
-            const auto [_, isNew] = unique.emplace(std::make_pair(path, info));
+            const auto [_, isNew] = unique.emplace(path, info);
 
             if (isNew) {
                 ++textureId;
@@ -446,6 +449,9 @@ namespace {
             addUnique(mat.roughnessTexturePath, 1); // r
             addUnique(mat.metalnessTexturePath, 1); // M
             addUnique(mat.normalMapTexturePath, 3); // xyz
+            if (mat.has_alpha_mask()) {
+                addUnique(mat.alphaMaskTexturePath, 3); // rgb
+            }
         }
 
         return unique;

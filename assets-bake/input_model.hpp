@@ -19,6 +19,11 @@ struct InputMaterialInfo {
     std::string roughnessTexturePath;
     std::string metalnessTexturePath;
     std::string normalMapTexturePath;
+    std::string alphaMaskTexturePath;
+
+    bool has_alpha_mask() const {
+        return alphaMaskTexturePath != "";
+    }
 };
 
 struct InputMeshInfo {

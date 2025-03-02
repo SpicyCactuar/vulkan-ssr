@@ -17,9 +17,13 @@ namespace offscreen {
                                                    const vkutils::DescriptorSetLayout& shadeLayout,
                                                    const vkutils::DescriptorSetLayout& materialLayout);
 
-    vkutils::Pipeline create_pipeline(const vkutils::VulkanWindow& window,
-                                      VkRenderPass renderPass,
-                                      VkPipelineLayout pipelineLayout);
+    vkutils::Pipeline create_opaque_pipeline(const vkutils::VulkanWindow& window,
+                                             VkRenderPass renderPass,
+                                             VkPipelineLayout pipelineLayout);
+
+    vkutils::Pipeline create_alpha_pipeline(const vkutils::VulkanWindow& window,
+                                            VkRenderPass renderPass,
+                                            VkPipelineLayout pipelineLayout);
 
     vkutils::Framebuffer create_offscreen_framebuffer(const vkutils::VulkanWindow& window,
                                                       VkRenderPass renderPass,
@@ -32,8 +36,9 @@ namespace offscreen {
     void record_commands(VkCommandBuffer commandBuffer,
                          VkRenderPass renderPass,
                          VkFramebuffer framebuffer,
-                         VkPipelineLayout offscreenPipelineLayout,
-                         VkPipeline offscreenPipeline,
+                         VkPipelineLayout pipelineLayout,
+                         VkPipeline opaquePipeline,
+                         VkPipeline alphaPipeline,
                          const VkExtent2D& imageExtent,
                          VkBuffer sceneUBO,
                          const glsl::SceneUniform& sceneUniform,
@@ -41,7 +46,8 @@ namespace offscreen {
                          VkBuffer shadeUBO,
                          const glsl::ShadeUniform& shadeUniform,
                          VkDescriptorSet screenDescriptors,
-                         const std::vector<mesh::Mesh>& meshes,
+                         const std::vector<mesh::Mesh>& opaqueMeshes,
+                         const std::vector<mesh::Mesh>& alphaMeshes,
                          const std::vector<material::Material>& materials,
                          const std::vector<VkDescriptorSet>& materialDescriptorSets);
 

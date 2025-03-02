@@ -8,6 +8,7 @@
 #include "../vkutils/vulkan_context.hpp"
 
 #include "baked_model.hpp"
+#include "material.hpp"
 
 namespace mesh {
     struct Mesh {
@@ -23,7 +24,8 @@ namespace mesh {
         std::uint32_t indexCount;
     };
 
-    std::vector<Mesh> extract_meshes(const vkutils::VulkanContext&,
-                                     const vkutils::Allocator&,
-                                     const baked::BakedModel& model);
+    std::pair<std::vector<Mesh>, std::vector<Mesh>> extract_meshes(const vkutils::VulkanContext&,
+                                                                   const vkutils::Allocator&,
+                                                                   const baked::BakedModel& model,
+                                                                   const std::vector<material::Material>& materials);
 }

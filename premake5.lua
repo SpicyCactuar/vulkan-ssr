@@ -15,7 +15,7 @@ local assetsPath = "assets"
 local fontsPath = "assets-src/fonts"
 local outPath = "out"
 
-workspace "sc23el-msc-project"
+workspace "vulkan-ssr"
     language "C++"
     cppdialect "C++23"
 
