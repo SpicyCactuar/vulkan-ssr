@@ -11,6 +11,7 @@ namespace gbuffer {
     constexpr VkFormat normalFormat = VK_FORMAT_R16G16B16A16_SFLOAT;
     constexpr VkFormat baseColourFormat = VK_FORMAT_R32G32B32A32_SFLOAT;
     constexpr VkFormat surfaceFormat = VK_FORMAT_R16G16B16A16_SFLOAT;
+    constexpr VkFormat emissiveFormat = VK_FORMAT_R32G32B32A32_SFLOAT;
 
     struct GBuffer {
         GBuffer() = delete;
@@ -26,6 +27,7 @@ namespace gbuffer {
         std::pair<vkutils::Image, vkutils::ImageView> normal;
         std::pair<vkutils::Image, vkutils::ImageView> baseColour;
         std::pair<vkutils::Image, vkutils::ImageView> surface;
+        std::pair<vkutils::Image, vkutils::ImageView> emissive;
     };
 
     vkutils::DescriptorSetLayout create_descriptor_layout(const vkutils::VulkanContext& context);

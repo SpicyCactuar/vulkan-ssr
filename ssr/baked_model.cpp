@@ -6,6 +6,7 @@
 
 #include "../vkutils/error.hpp"
 
+// TODO: Rename methods to snake_case
 namespace baked {
     // See asset3-bake/main.cpp for more info
     constexpr char kFileMagic[16] = "\0\0SPICYMESH";
@@ -17,7 +18,7 @@ namespace baked {
         auto ret = std::fread(buffer, 1, bytes, input);
 
         if (bytes != ret) {
-            throw vkutils::Error("checked_read_(): expected %zu bytes, got %zu", bytes, ret);
+            throw vkutils::Error("checkedRead(): expected %zu bytes, got %zu", bytes, ret);
         }
     }
 
@@ -44,7 +45,7 @@ namespace baked {
         const auto length = readUint32(aFin);
 
         if (length >= kMaxString) {
-            throw vkutils::Error("read_string_(): unexpectedly long string (%u bytes)", length);
+            throw vkutils::Error("readString(): unexpectedly long string (%u bytes)", length);
         }
 
         std::string ret;
@@ -101,9 +102,11 @@ namespace baked {
             const BakedMaterialInfo info{
                 .name = readString(input),
                 .baseColour = readVec<3>(input),
+                .emission = readVec<3>(input),
                 .roughness = readFloat(input),
                 .metalness = readFloat(input),
                 .baseColourTextureId = readUint32(input),
+                .emissiveTextureId = readUint32(input),
                 .roughnessTextureId = readUint32(input),
                 .metalnessTextureId = readUint32(input),
                 .normalMapTextureId = readUint32(input),
@@ -111,6 +114,7 @@ namespace baked {
             };
 
             assert(info.baseColourTextureId < bakedModel.textures.size());
+            assert(info.emissiveTextureId < bakedModel.textures.size());
             assert(info.roughnessTextureId < bakedModel.textures.size());
             assert(info.metalnessTextureId < bakedModel.textures.size());
             assert(info.normalMapTextureId < bakedModel.textures.size());

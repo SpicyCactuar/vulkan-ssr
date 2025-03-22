@@ -53,10 +53,21 @@ namespace gbuffer {
         auto surfaceView = vkutils::image_to_view(window, surfaceImage.image, VK_IMAGE_VIEW_TYPE_2D,
                                                   gbuffer::surfaceFormat, VK_IMAGE_ASPECT_COLOR_BIT);
 
+        // Create surface buffer
+        auto emissiveImage = vkutils::create_image(allocator, gbuffer::emissiveFormat, VK_IMAGE_TYPE_2D,
+                                                   windowWidth, windowHeight, 1,
+                                                   1,
+                                                   VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+                                                   VMA_MEMORY_USAGE_GPU_ONLY);
+
+        auto emissiveView = vkutils::image_to_view(window, emissiveImage.image, VK_IMAGE_VIEW_TYPE_2D,
+                                                   gbuffer::emissiveFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+
         this->depth = {std::move(depthImage), std::move(depthView)};
         this->normal = {std::move(normalImage), std::move(normalView)};
         this->baseColour = {std::move(baseColourImage), std::move(baseColourView)};
         this->surface = {std::move(surfaceImage), std::move(surfaceView)};
+        this->emissive = {std::move(emissiveImage), std::move(emissiveView)};
     }
 
     GBuffer::GBuffer(GBuffer&& other) noexcept : depth(std::exchange(other.depth, {})),
@@ -71,6 +82,7 @@ namespace gbuffer {
             std::swap(normal, other.normal);
             std::swap(baseColour, other.baseColour);
             std::swap(surface, other.surface);
+            std::swap(emissive, other.emissive);
         }
         return *this;
     }
@@ -97,6 +109,12 @@ namespace gbuffer {
             },
             VkDescriptorSetLayoutBinding{
                 .binding = 3, // layout(set = ..., binding = 3)
+                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+                .descriptorCount = 1,
+                .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
+            },
+            VkDescriptorSetLayoutBinding{
+                .binding = 4, // layout(set = ..., binding = 4)
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
@@ -144,6 +162,11 @@ namespace gbuffer {
             .imageView = gBuffer.surface.second.handle,
             .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
         };
+        const VkDescriptorImageInfo emissiveDescriptorInfo{
+            .sampler = screenSampler.handle,
+            .imageView = gBuffer.emissive.second.handle,
+            .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+        };
 
         const std::array writeDescriptor{
             VkWriteDescriptorSet{
@@ -177,7 +200,15 @@ namespace gbuffer {
                 .descriptorCount = 1,
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .pImageInfo = &surfaceDescriptorInfo,
-            }
+            },
+            VkWriteDescriptorSet{
+                .sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET,
+                .dstSet = gbufferDescriptorSet,
+                .dstBinding = 4,
+                .descriptorCount = 1,
+                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+                .pImageInfo = &emissiveDescriptorInfo,
+            },
         };
 
         vkUpdateDescriptorSets(context.device, writeDescriptor.size(), writeDescriptor.data(), 0, nullptr);

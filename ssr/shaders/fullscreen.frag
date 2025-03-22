@@ -38,6 +38,7 @@ layout(set = 2, binding = 0) uniform sampler2D gDepth;
 layout(set = 2, binding = 1) uniform sampler2D gNormal;
 layout(set = 2, binding = 2) uniform sampler2D gBaseColour;
 layout(set = 2, binding = 3) uniform sampler2D gSurface;
+layout(set = 2, binding = 4) uniform sampler2D gEmissive;
 
 layout(std140, set = 3, binding = 0) uniform SSR {
     uint mode;
@@ -303,6 +304,7 @@ vec3 reflectionColour(vec2 hit_uv, vec3 r_vcs) {
                      texture(gNormal, hit_uv).xyz,
                      reconstructPositionVcs(hit_uv, hitDepth),
                      texture(gBaseColour, hit_uv).rgb,
+                     texture(gEmissive, hit_uv).rgb,
                      hitSurface.r, hitSurface.g, hitSurface.b);
 
     return hitPBR.colour;
@@ -332,6 +334,7 @@ void main() {
     vec4 baseColour = texture(gBaseColour, uv);
     vec3 cMat = baseColour.rgb;
     vec4 surface = texture(gSurface, uv);
+    vec3 E = texture(gEmissive, uv).rgb;
     float r = surface.r;
     float M = surface.g;
     float S = surface.b;
@@ -344,11 +347,11 @@ void main() {
     // If debug mode, return debug mode colour
     if (shadeUniforms.shade.visualisationMode != pbrMode ||
         shadeUniforms.shade.pbrTerm != allTerms) {
-        colour = vec4(shade(shadeUniforms.shade, depth, normal_vcs, position_vcs, cMat, r, M, S), 1.0f);
+        colour = vec4(shade(shadeUniforms.shade, depth, normal_vcs, position_vcs, cMat, E, r, M, S), 1.0f);
         return;
     }
 
-    PBR pbr = lightPBR(shadeUniforms.shade, normal_vcs, position_vcs, cMat, r, M, S);
+    PBR pbr = lightPBR(shadeUniforms.shade, normal_vcs, position_vcs, cMat, E, r, M, S);
     vec3 R = (shadeUniforms.shade.detailsBitfield & fresnelModulation) != 0 ? pbr.F : vec3(1.0f);
     bool performSSR = ssr.mode != ssrDisabledMode;
     vec3 hit_vcs;

@@ -91,7 +91,7 @@ float cookTorranceMask(float nh, float nv, float nl, float vh) {
     return min(1.0f, 2.0f * min(nh * nv / vh, nh * nl / vh));
 }
 
-PBR pbr(Shade shade, vec3 normal_vcs, vec3 position_vcs, vec3 incident_vcs, vec3 cMat, float r, float M, float S) {
+PBR pbr(Shade shade, vec3 normal_vcs, vec3 position_vcs, vec3 incident_vcs, vec3 cMat, vec3 E, float r, float M, float S) {
     // Prepare result
     PBR result;
 
@@ -132,13 +132,13 @@ PBR pbr(Shade shade, vec3 normal_vcs, vec3 position_vcs, vec3 incident_vcs, vec3
     result.brdf = result.diffuse + result.specular;
 
     // Full colour
-    result.colour = result.ambient + S * cLight * nl * result.brdf;
+    result.colour = E + result.ambient + S * cLight * nl * result.brdf;
 
     return result;
 }
 
-PBR lightPBR(Shade shade, vec3 normal_vcs, vec3 position_vcs, vec3 cMat, float r, float M, float S) {
-    return pbr(shade, normal_vcs, position_vcs, shade.light.position_vcs - position_vcs, cMat, r, M, S);
+PBR lightPBR(Shade shade, vec3 normal_vcs, vec3 position_vcs, vec3 cMat, vec3 E, float r, float M, float S) {
+    return pbr(shade, normal_vcs, position_vcs, shade.light.position_vcs - position_vcs, cMat, E, r, M, S);
 }
 
 vec3 pbrTerm(Shade shade, PBR pbr) {
@@ -177,8 +177,8 @@ vec3 reflectionDirection(vec3 normal_vcs, vec3 position_vcs) {
     return normalize(reflect(I, normal_vcs));
 }
 
-vec3 shade(Shade shade, float depth, vec3 normal_vcs, vec3 position_vcs, vec3 cMat, float r, float M, float S) {
-    PBR pbr = lightPBR(shade, normal_vcs, position_vcs, cMat, r, M, S);
+vec3 shade(Shade shade, float depth, vec3 normal_vcs, vec3 position_vcs, vec3 cMat, vec3 E, float r, float M, float S) {
+    PBR pbr = lightPBR(shade, normal_vcs, position_vcs, cMat, E, r, M, S);
     switch (shade.visualisationMode) {
         case pbrMode:
             return pbrTerm(shade, pbr);

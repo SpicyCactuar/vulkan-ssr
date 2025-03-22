@@ -11,11 +11,12 @@ struct InputMaterialInfo {
     std::string materialName;
 
     glm::vec3 baseColor;
-
+    glm::vec3 baseEmission;
     float baseRoughness;
     float baseMetalness;
 
     std::string baseColorTexturePath;
+    std::string emissiveTexturePath;
     std::string roughnessTexturePath;
     std::string metalnessTexturePath;
     std::string normalMapTexturePath;

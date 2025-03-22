@@ -15,13 +15,15 @@ layout(std140, set = 1, binding = 0) uniform ShadeUniforms {
 layout(set = 1, binding = 1) uniform sampler2DShadow shadow;
 
 layout(set = 2, binding = 0) uniform sampler2D baseColour;
-layout(set = 2, binding = 1) uniform sampler2D roughness;
-layout(set = 2, binding = 2) uniform sampler2D metalness;
-layout(set = 2, binding = 3) uniform sampler2D normalMap;
+layout(set = 2, binding = 1) uniform sampler2D emissive;
+layout(set = 2, binding = 2) uniform sampler2D roughness;
+layout(set = 2, binding = 3) uniform sampler2D metalness;
+layout(set = 2, binding = 4) uniform sampler2D normalMap;
 
 layout(std140, push_constant) uniform MaterialPushConstants {
     vec3 baseColour;
     float roughness;
+    vec3 emission;
     float metalness;
 } materialPush;
 
@@ -35,6 +37,7 @@ layout(location = 6) in vec4 position_lcs;
 layout(location = 0) out vec4 gNormal;
 layout(location = 1) out vec4 gBaseColour;
 layout(location = 2) out vec4 gSurface;
+layout(location = 3) out vec4 gEmissive;
 
 vec3 mapNormal(vec3 normal_tcs) {
     return VTBN * (normal_tcs * 2.0f - 1.0f);
@@ -56,8 +59,10 @@ void main() {
     float r = texture(roughness, uv).r * materialPush.roughness;
     float M = texture(metalness, uv).r * materialPush.metalness;
     float S = (shadeUniforms.shade.detailsBitfield & shadowsMask) != 0 ? shadowFactor() : noShadows;
+    vec3 emissive = texture(emissive, uv).rgb * materialPush.emission;
 
     gNormal = vec4(fragNormal_vcs, 0.0f);
     gBaseColour = vec4(cMat, 1.0f);
     gSurface = vec4(r, M, S, 0.0f);
+    gEmissive = vec4(emissive, 0.0f);
 }

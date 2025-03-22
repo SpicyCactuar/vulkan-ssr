@@ -13,6 +13,7 @@
 
 #include "baked_model.hpp"
 #include "benchmark.hpp"
+#include "bloom.hpp"
 #include "config.hpp"
 #include "environment.hpp"
 #include "fullscreen.hpp"
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) try {
         return EXIT_FAILURE;
     }
 
-    // Prepare Vulkan windoww
+    // Prepare Vulkan window
     vkutils::VulkanWindow vulkanWindow = vkutils::make_vulkan_window(cfg::windowWidth, cfg::windowHeight, sceneName);
 
     // Configure the GLFW callbacks & state
@@ -111,6 +112,9 @@ int main(int argc, char* argv[]) try {
     vkutils::Framebuffer offscreenFramebuffer = offscreen::create_offscreen_framebuffer(
         vulkanWindow, offscreenPass.handle, gBuffer);
 
+    // Initialise Bloom Pipeline
+    const bloom::BloomBuffer bloomBuffer(vulkanWindow, allocator);
+
     // Initialise Environment descriptor
     const auto environmentDescriptorLayout = environment::create_descriptor_layout(vulkanWindow);
     const auto environmentDescriptorSet = vkutils::allocate_descriptor_set(
@@ -170,6 +174,7 @@ int main(int argc, char* argv[]) try {
 
     // Load model
     const baked::BakedModel sceneModel = baked::loadBakedModel(scenePath.generic_string().c_str());
+    // TODO: Light cube model with ImGui controls
 
     // Load materials
     // Keeps all Images and ImageViews alive for the duration of the render loop
@@ -194,7 +199,6 @@ int main(int argc, char* argv[]) try {
     // Load environment
     const auto cubeMap = environment::load_cube_map(vulkanWindow, allocator, commandPool);
     environment::update_descriptor_set(vulkanWindow, environmentDescriptorSet, cubeMap.second, anisotropySampler);
-
 
 #ifdef ENABLE_DIAGNOSTICS
     // Screenshot resources

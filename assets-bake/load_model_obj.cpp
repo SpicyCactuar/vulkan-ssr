@@ -114,12 +114,15 @@ InputModel load_compressed_obj(char const* rawPath) {
         materialInfo.materialName = material.name;
 
         materialInfo.baseColor = glm::vec3(material.diffuse[0], material.diffuse[1], material.diffuse[2]);
-
+        materialInfo.baseEmission = glm::vec3(material.emission[0], material.emission[1], material.emission[2]);
         materialInfo.baseRoughness = material.roughness;
         materialInfo.baseMetalness = material.metallic;
 
         if (!material.diffuse_texname.empty()) {
             materialInfo.baseColorTexturePath = prefix + material.diffuse_texname;
+        }
+        if (!material.emissive_texname.empty()) {
+            materialInfo.emissiveTexturePath = prefix + material.emissive_texname;
         }
         if (!material.roughness_texname.empty()) {
             materialInfo.roughnessTexturePath = prefix + material.roughness_texname;

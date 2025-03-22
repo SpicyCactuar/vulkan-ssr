@@ -9,7 +9,6 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
-// TODO: Include alphaMask docs
 /*
  * Baked file format:
  *
@@ -28,12 +27,15 @@
  *    - repeat M times:
  *      - string: name
  *      - vec3: base color factor
+ *      - vec3: base emission factor
  *      - float: roughness factor
  *      - float: metalness factor
  *      - uint32_t: base color texture index
+ *      - uint32_t: emissive texture index
  *      - uint32_t: roughness texture index
  *      - uint32_t: metalness texture index
  *      - uint32_t: normal map texture index
+ *      - uint32_t: alphaMask texture index, or 0xFFFFFFF if none
  *
  *  4. Mesh data
  *    - uint32_t: M = number of meshes
@@ -66,10 +68,12 @@ namespace baked {
         std::string name;
 
         glm::vec3 baseColour;
+        glm::vec3 emission;
         float roughness;
         float metalness;
 
         std::uint32_t baseColourTextureId;
+        std::uint32_t emissiveTextureId;
         std::uint32_t roughnessTextureId;
         std::uint32_t metalnessTextureId;
         std::uint32_t normalMapTextureId;

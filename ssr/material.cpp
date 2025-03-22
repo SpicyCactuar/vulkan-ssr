@@ -38,6 +38,8 @@ namespace material {
         for (const auto& modelMaterial : model.materials) {
             load_material_texture(model, modelMaterial.baseColourTextureId, Material::COLOUR_FORMAT,
                                   context, allocator, loadCommandPool, textures);
+            load_material_texture(model, modelMaterial.emissiveTextureId, Material::LINEAR_FORMAT,
+                                  context, allocator, loadCommandPool, textures);
             load_material_texture(model, modelMaterial.roughnessTextureId, Material::LINEAR_FORMAT,
                                   context, allocator, loadCommandPool, textures);
             load_material_texture(model, modelMaterial.metalnessTextureId, Material::LINEAR_FORMAT,
@@ -51,6 +53,7 @@ namespace material {
             }
 
             assert(textures[modelMaterial.baseColourTextureId].image != VK_NULL_HANDLE);
+            assert(textures[modelMaterial.emissiveTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.roughnessTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.metalnessTextureId].image != VK_NULL_HANDLE);
             assert(textures[modelMaterial.normalMapTextureId].image != VK_NULL_HANDLE);
@@ -65,10 +68,14 @@ namespace material {
                 glsl::MaterialPushConstants{
                     .baseColour = modelMaterial.baseColour,
                     .roughness = modelMaterial.roughness,
+                    .emission = modelMaterial.emission,
                     .metalness = modelMaterial.metalness
                 },
                 vkutils::image_to_view(context, textures[modelMaterial.baseColourTextureId].image,
                                        VK_IMAGE_VIEW_TYPE_2D, Material::COLOUR_FORMAT,
+                                       VK_IMAGE_ASPECT_COLOR_BIT),
+                vkutils::image_to_view(context, textures[modelMaterial.emissiveTextureId].image,
+                                       VK_IMAGE_VIEW_TYPE_2D, Material::LINEAR_FORMAT,
                                        VK_IMAGE_ASPECT_COLOR_BIT),
                 vkutils::image_to_view(context, textures[modelMaterial.roughnessTextureId].image,
                                        VK_IMAGE_VIEW_TYPE_2D, Material::LINEAR_FORMAT,
@@ -88,6 +95,7 @@ namespace material {
             );
 
             assert(material.baseColour.handle != VK_NULL_HANDLE);
+            assert(material.emissive.handle != VK_NULL_HANDLE);
             assert(material.roughness.handle != VK_NULL_HANDLE);
             assert(material.metalness.handle != VK_NULL_HANDLE);
             assert(material.normalMap.handle != VK_NULL_HANDLE);
@@ -109,30 +117,37 @@ namespace material {
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT
             },
-            // Roughness
+            // Emissive
             VkDescriptorSetLayoutBinding{
                 .binding = 1, // layout(set = ..., binding = 1)
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT
             },
-            // Metalness
+            // Roughness
             VkDescriptorSetLayoutBinding{
                 .binding = 2, // layout(set = ..., binding = 2)
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT
             },
-            // Normal Map
+            // Metalness
             VkDescriptorSetLayoutBinding{
                 .binding = 3, // layout(set = ..., binding = 3)
+                .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+                .descriptorCount = 1,
+                .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT
+            },
+            // Normal Map
+            VkDescriptorSetLayoutBinding{
+                .binding = 4, // layout(set = ..., binding = 4)
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
             },
             // Alpha Mask - Only for alpha masked pipelines
             VkDescriptorSetLayoutBinding{
-                .binding = 4, // layout(set = ..., binding = 4)
+                .binding = 5, // layout(set = ..., binding = 5)
                 .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
                 .descriptorCount = 1,
                 .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
@@ -180,10 +195,15 @@ namespace material {
                                const vkutils::Sampler& anisotropySampler,
                                const vkutils::Sampler& pointSampler) {
         if (material.has_alpha_mask()) {
-            const std::array<const VkDescriptorImageInfo, 5> textureDescriptors{
+            const std::array<const VkDescriptorImageInfo, 6> textureDescriptors{
                 VkDescriptorImageInfo{
                     .sampler = anisotropySampler.handle,
                     .imageView = material.baseColour.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.emissive.handle,
                     .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
                 },
                 VkDescriptorImageInfo{
@@ -210,10 +230,15 @@ namespace material {
 
             update_material_descriptor_set(context, materialDescriptorSet, textureDescriptors);
         } else {
-            const std::array<const VkDescriptorImageInfo, 4> textureDescriptors{
+            const std::array<const VkDescriptorImageInfo, 5> textureDescriptors{
                 VkDescriptorImageInfo{
                     .sampler = anisotropySampler.handle,
                     .imageView = material.baseColour.handle,
+                    .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+                },
+                VkDescriptorImageInfo{
+                    .sampler = pointSampler.handle,
+                    .imageView = material.emissive.handle,
                     .imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
                 },
                 VkDescriptorImageInfo{

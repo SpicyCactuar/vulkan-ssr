@@ -44,6 +44,14 @@ namespace offscreen {
                 .storeOp = VK_ATTACHMENT_STORE_OP_STORE,
                 .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
                 .finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
+            },
+            VkAttachmentDescription{
+                .format = gbuffer::emissiveFormat,
+                .samples = VK_SAMPLE_COUNT_1_BIT,
+                .loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR,
+                .storeOp = VK_ATTACHMENT_STORE_OP_STORE,
+                .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED,
+                .finalLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
             }
         };
 
@@ -63,6 +71,10 @@ namespace offscreen {
             },
             VkAttachmentReference{
                 .attachment = 3, // attachments[3]
+                .layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
+            },
+            VkAttachmentReference{
+                .attachment = 4, // attachments[4]
                 .layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
             }
         };
@@ -320,6 +332,11 @@ namespace offscreen {
                 .blendEnable = VK_FALSE,
                 .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
                                   VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
+            },
+            VkPipelineColorBlendAttachmentState{
+                .blendEnable = VK_FALSE,
+                .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
+                                  VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
             }
         };
 
@@ -528,6 +545,11 @@ namespace offscreen {
                 .blendEnable = VK_FALSE,
                 .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
                                   VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
+            },
+            VkPipelineColorBlendAttachmentState{
+                .blendEnable = VK_FALSE,
+                .colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |
+                                  VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT
             }
         };
 
@@ -585,7 +607,8 @@ namespace offscreen {
             gBuffer.depth.second.handle,
             gBuffer.normal.second.handle,
             gBuffer.baseColour.second.handle,
-            gBuffer.surface.second.handle
+            gBuffer.surface.second.handle,
+            gBuffer.emissive.second.handle
         };
         const VkFramebufferCreateInfo framebufferInfo{
             .sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO,
@@ -666,6 +689,9 @@ namespace offscreen {
                 .depthStencil = VkClearDepthStencilValue{
                     .depth = 1.0f
                 }
+            },
+            VkClearValue{
+                .color = cfg::noColour
             },
             VkClearValue{
                 .color = cfg::noColour

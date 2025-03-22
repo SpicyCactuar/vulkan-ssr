@@ -243,6 +243,9 @@ namespace {
             if (material.baseColorTexturePath.empty()) {
                 material.baseColorTexturePath = kTextureFallbackRGBA1111;
             }
+            if (material.emissiveTexturePath.empty()) {
+                material.emissiveTexturePath = kTextureFallbackR1;
+            }
             if (material.roughnessTexturePath.empty()) {
                 material.roughnessTexturePath = kTextureFallbackR1;
             }
@@ -313,21 +316,28 @@ namespace {
             checked_write(out, sizeof(channels), &channels);
         }
 
-        // TODO: Include alphaMask docs
         // Write material information
         // Format:
         //  - uint32_t : M = number of materials
         //  - repeat M times:
-        //    - uin32_t : base color texture index
-        //    - uin32_t : roughness texture index
-        //    - uin32_t : metalness texture index
-        //    - uin32_t : normalMap texture index
+        //    - std::string : material name
+        //    - glm::vec3 : base color
+        //    - std::vec3 : base emission
+        //    - float : base roughness
+        //    - float : base metalness
+        //    - uint32_t : base color texture index
+        //    - uint32_t : emissive texture index
+        //    - uint32_t : roughness texture index
+        //    - uint32_t : metalness texture index
+        //    - uint32_t : normalMap texture index
+        //    - uint32_t : alphaMask texture index, or 0xFFFFFFFF if none is provided
         const std::uint32_t materialCount = static_cast<std::uint32_t>(model.materials.size());
         checked_write(out, sizeof(materialCount), &materialCount);
 
         for (const auto& material : model.materials) {
             write_string(out, material.materialName.c_str());
             checked_write(out, sizeof(glm::vec3), glm::value_ptr(material.baseColor));
+            checked_write(out, sizeof(glm::vec3), glm::value_ptr(material.baseEmission));
             checked_write(out, sizeof(float), &material.baseRoughness);
             checked_write(out, sizeof(float), &material.baseMetalness);
 
@@ -345,6 +355,7 @@ namespace {
             };
 
             writeTex(material.baseColorTexturePath);
+            writeTex(material.emissiveTexturePath);
             writeTex(material.roughnessTexturePath);
             writeTex(material.metalnessTexturePath);
             writeTex(material.normalMapTexturePath);
@@ -446,6 +457,7 @@ namespace {
 
         for (const auto& mat : model.materials) {
             addUnique(mat.baseColorTexturePath, 4); // rgba
+            addUnique(mat.emissiveTexturePath, 3); // rgb
             addUnique(mat.roughnessTexturePath, 1); // r
             addUnique(mat.metalnessTexturePath, 1); // M
             addUnique(mat.normalMapTexturePath, 3); // xyz
